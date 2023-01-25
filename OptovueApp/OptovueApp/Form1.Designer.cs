@@ -28,69 +28,76 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.customButton1 = new OptovueApp.CustomComponents.CustomButton();
+            this.startButton = new OptovueApp.CustomComponents.CustomButton();
+            this.stopButton = new OptovueApp.CustomComponents.CustomButton();
+            this.selectFolderButton = new OptovueApp.CustomComponents.CustomButton();
             this.SuspendLayout();
             // 
-            // button1
+            // startButton
             // 
-            this.button1.Location = new System.Drawing.Point(309, 69);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(174, 48);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Start";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.startButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(73)))), ((int)(((byte)(226)))));
+            this.startButton.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(73)))), ((int)(((byte)(226)))));
+            this.startButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(73)))), ((int)(((byte)(226)))));
+            this.startButton.BorderRadius = 7;
+            this.startButton.BorderSize = 0;
+            this.startButton.FlatAppearance.BorderSize = 0;
+            this.startButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.startButton.ForeColor = System.Drawing.Color.White;
+            this.startButton.Location = new System.Drawing.Point(321, 101);
+            this.startButton.Name = "startButton";
+            this.startButton.Size = new System.Drawing.Size(150, 40);
+            this.startButton.TabIndex = 3;
+            this.startButton.Text = "Start";
+            this.startButton.TextColor = System.Drawing.Color.White;
+            this.startButton.UseVisualStyleBackColor = false;
+            this.startButton.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // stopButton
             // 
-            this.button2.Location = new System.Drawing.Point(309, 151);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(174, 48);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Stop";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.stopButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(73)))), ((int)(((byte)(226)))));
+            this.stopButton.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(73)))), ((int)(((byte)(226)))));
+            this.stopButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(73)))), ((int)(((byte)(226)))));
+            this.stopButton.BorderRadius = 7;
+            this.stopButton.BorderSize = 0;
+            this.stopButton.FlatAppearance.BorderSize = 0;
+            this.stopButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.stopButton.ForeColor = System.Drawing.Color.White;
+            this.stopButton.Location = new System.Drawing.Point(321, 178);
+            this.stopButton.Name = "stopButton";
+            this.stopButton.Size = new System.Drawing.Size(150, 40);
+            this.stopButton.TabIndex = 4;
+            this.stopButton.Text = "Stop";
+            this.stopButton.TextColor = System.Drawing.Color.White;
+            this.stopButton.UseVisualStyleBackColor = false;
+            this.stopButton.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button3
+            // selectFolderButton
             // 
-            this.button3.Location = new System.Drawing.Point(309, 242);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(174, 48);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Select Folder";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // customButton1
-            // 
-            this.customButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(73)))), ((int)(((byte)(226)))));
-            this.customButton1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(73)))), ((int)(((byte)(226)))));
-            this.customButton1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(73)))), ((int)(((byte)(226)))));
-            this.customButton1.BorderRadius = 7;
-            this.customButton1.BorderSize = 0;
-            this.customButton1.FlatAppearance.BorderSize = 0;
-            this.customButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.customButton1.ForeColor = System.Drawing.Color.White;
-            this.customButton1.Location = new System.Drawing.Point(584, 139);
-            this.customButton1.Name = "customButton1";
-            this.customButton1.Size = new System.Drawing.Size(150, 40);
-            this.customButton1.TabIndex = 3;
-            this.customButton1.Text = "customButton1";
-            this.customButton1.TextColor = System.Drawing.Color.White;
-            this.customButton1.UseVisualStyleBackColor = false;
+            this.selectFolderButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(73)))), ((int)(((byte)(226)))));
+            this.selectFolderButton.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(73)))), ((int)(((byte)(226)))));
+            this.selectFolderButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(73)))), ((int)(((byte)(226)))));
+            this.selectFolderButton.BorderRadius = 7;
+            this.selectFolderButton.BorderSize = 0;
+            this.selectFolderButton.FlatAppearance.BorderSize = 0;
+            this.selectFolderButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.selectFolderButton.ForeColor = System.Drawing.Color.White;
+            this.selectFolderButton.Location = new System.Drawing.Point(321, 251);
+            this.selectFolderButton.Name = "selectFolderButton";
+            this.selectFolderButton.Size = new System.Drawing.Size(150, 40);
+            this.selectFolderButton.TabIndex = 5;
+            this.selectFolderButton.Text = "Select Folder";
+            this.selectFolderButton.TextColor = System.Drawing.Color.White;
+            this.selectFolderButton.UseVisualStyleBackColor = false;
+            this.selectFolderButton.Click += new System.EventHandler(this.button3_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.customButton1);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.selectFolderButton);
+            this.Controls.Add(this.stopButton);
+            this.Controls.Add(this.startButton);
             this.Name = "Form1";
             this.Text = "Optovue";
             this.Load += new System.EventHandler(this.Optomo_Load);
@@ -99,11 +106,9 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private CustomComponents.CustomButton customButton1;
+        private CustomComponents.CustomButton startButton;
+        private CustomComponents.CustomButton stopButton;
+        private CustomComponents.CustomButton selectFolderButton;
     }
 }
 
