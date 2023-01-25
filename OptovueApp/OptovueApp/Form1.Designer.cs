@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.startButton = new OptovueApp.CustomComponents.CustomButton();
             this.stopButton = new OptovueApp.CustomComponents.CustomButton();
             this.selectFolderButton = new OptovueApp.CustomComponents.CustomButton();
@@ -98,6 +99,7 @@
             this.Controls.Add(this.selectFolderButton);
             this.Controls.Add(this.stopButton);
             this.Controls.Add(this.startButton);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Optovue";
             this.Load += new System.EventHandler(this.Optomo_Load);
