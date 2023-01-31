@@ -97,7 +97,7 @@ namespace OptovueApp
             string videoRecordingName = string.Format(@"{0}\{1}_{2}.mp4", VideoFolderPath, Environment.UserName.ToUpper(), DateTime.Now.ToString("d_MMM_yyyy_HH_mm_ssff"));
             using (var vFWriter = new VideoFileWriter())
             {
-                vFWriter.Open(videoRecordingName, bounds.Width, bounds.Height, 10, VideoCodec.MPEG4, 3000000);
+                vFWriter.Open(videoRecordingName, bounds.Width, bounds.Height, 10, VideoCodec.MPEG4, 6000000);
 
                 foreach (var frame in VideoFrames)
                 {
