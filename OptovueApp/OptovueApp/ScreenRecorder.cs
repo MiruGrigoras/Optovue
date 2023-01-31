@@ -9,9 +9,53 @@ using System.Drawing.Imaging;
 using System.IO;
 
 using Accord.Video.FFMPEG;
+using System.Runtime.InteropServices;
 
 namespace OptovueApp
 {
+    public static class User32
+    {
+        public const Int32 CURSOR_SHOWING = 0x00000001;
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct ICONINFO
+        {
+            public bool fIcon;
+            public Int32 xHotspot;
+            public Int32 yHotspot;
+            public IntPtr hbmMask;
+            public IntPtr hbmColor;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct POINT
+        {
+            public Int32 x;
+            public Int32 y;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct CURSORINFO
+        {
+            public Int32 cbSize;
+            public Int32 flags;
+            public IntPtr hCursor;
+            public POINT ptScreenPos;
+        }
+
+        [DllImport("user32.dll")]
+        public static extern bool GetCursorInfo(out CURSORINFO pci);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr CopyIcon(IntPtr hIcon);
+
+        [DllImport("user32.dll")]
+        public static extern bool DrawIcon(IntPtr hdc, int x, int y, IntPtr hIcon);
+
+        [DllImport("user32.dll")]
+        public static extern bool GetIconInfo(IntPtr hIcon, out ICONINFO piconinfo);
+    }
+
     class ScreenRecorder
     {
         //Video variables
@@ -78,6 +122,34 @@ namespace OptovueApp
             {
                 //Add screen to bitmap:
                 graphics.CopyFromScreen(new Point(bounds.Left, bounds.Top), Point.Empty, bounds.Size);
+
+                User32.CURSORINFO cursorInfo;
+                cursorInfo.cbSize = Marshal.SizeOf(typeof(User32.CURSORINFO));
+
+                if (User32.GetCursorInfo(out cursorInfo))
+                {
+                    // if the cursor is showing draw it on the screen shot
+                    if (cursorInfo.flags == User32.CURSOR_SHOWING)
+                    {
+                        // we need to get hotspot so we can draw the cursor in the correct position
+                        var iconPointer = User32.CopyIcon(cursorInfo.hCursor);
+                        User32.ICONINFO iconInfo;
+                        int iconX, iconY;
+
+                        if (User32.GetIconInfo(iconPointer, out iconInfo))
+                        {
+                            // calculate the correct position of the cursor
+                            iconX = cursorInfo.ptScreenPos.x - ((int)iconInfo.xHotspot);
+                            iconY = cursorInfo.ptScreenPos.y - ((int)iconInfo.yHotspot);
+
+                            // draw the cursor icon on top of the captured screen image
+                            User32.DrawIcon(graphics.GetHdc(), iconX, iconY, cursorInfo.hCursor);
+
+                            // release the handle created by call to g.GetHdc()
+                            graphics.ReleaseHdc();
+                        }
+                    }
+                }
 
                 //Save screenshot:
                 SaveFrame(bitmap);
