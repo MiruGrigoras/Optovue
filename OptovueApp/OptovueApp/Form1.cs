@@ -1,10 +1,15 @@
-﻿using System;
+﻿using Accord.Video;
+using Accord.Video.FFMPEG;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,10 +17,11 @@ namespace OptovueApp
 {
     public partial class Form1 : Form
     {
-        ScreenRecorder screenRecorder = new ScreenRecorder(new Rectangle());
+        private ScreenRecorder _streamVideo;
         public Form1()
         {
             InitializeComponent();
+            _streamVideo = new ScreenRecorder();
         }
         private void Optomo_Load(object sender, EventArgs e)
         {
@@ -24,28 +30,36 @@ namespace OptovueApp
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Rectangle bounds = Screen.FromControl(this).Bounds;
-            screenRecorder = new ScreenRecorder(bounds);
-            tmrRec.Start();
-            screenRecorder.Start();
+            try
+            {
+                _streamVideo.StartRec();
+                tmrRec.Start();
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            screenRecorder.Stop();
-            tmrRec.Stop();
-            Application.Restart();
+            try
+            {
+                _streamVideo.StopRec();
+                tmrRec.Stop();
+                MessageBox.Show(@"File saved!");
+                Application.Restart();
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void tmrRec_Tick_1(object sender, EventArgs e)
         {
-            screenRecorder.CaptureFrame();
-            lblTime.Text = screenRecorder.GetElapsed();
+            lb_stopWatch.Text = _streamVideo.GetElapsed();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
