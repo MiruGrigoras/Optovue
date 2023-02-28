@@ -31,25 +31,24 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tmrRec = new System.Windows.Forms.Timer(this.components);
-            this.lblTime = new System.Windows.Forms.Label();
+            this.lb_stopWatch = new System.Windows.Forms.Label();
             this.stopButton = new OptovueApp.CustomComponents.CustomButton();
             this.startButton = new OptovueApp.CustomComponents.CustomButton();
             this.SuspendLayout();
             // 
             // tmrRec
             // 
-            this.tmrRec.Tick += new System.EventHandler(this.timer1_Tick);
+            this.tmrRec.Tick += new System.EventHandler(this.tmrRec_Tick_1);
             // 
-            // lblTime
+            // lb_stopWatch
             // 
-            this.lblTime.AutoSize = true;
-            this.lblTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTime.Location = new System.Drawing.Point(107, 215);
-            this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(90, 25);
-            this.lblTime.TabIndex = 6;
-            this.lblTime.Text = "00:00:00";
-            this.lblTime.Click += new System.EventHandler(this.label1_Click);
+            this.lb_stopWatch.AutoSize = true;
+            this.lb_stopWatch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_stopWatch.Location = new System.Drawing.Point(105, 205);
+            this.lb_stopWatch.Name = "lb_stopWatch";
+            this.lb_stopWatch.Size = new System.Drawing.Size(90, 25);
+            this.lb_stopWatch.TabIndex = 6;
+            this.lb_stopWatch.Text = "00:00:00";
             // 
             // stopButton
             // 
@@ -94,7 +93,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(310, 278);
-            this.Controls.Add(this.lblTime);
+            this.Controls.Add(this.lb_stopWatch);
             this.Controls.Add(this.stopButton);
             this.Controls.Add(this.startButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -110,7 +109,7 @@
         private CustomComponents.CustomButton startButton;
         private CustomComponents.CustomButton stopButton;
         private System.Windows.Forms.Timer tmrRec;
-        private System.Windows.Forms.Label lblTime;
+        private System.Windows.Forms.Label lb_stopWatch;
     }
 }
 
