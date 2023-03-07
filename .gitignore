@@ -2,3 +2,40 @@
 OptovueApp/.vs/
 OptovueApp/OptovueApp/obj/
 OptovueApp/OptovueApp/bin
+
+
+# compiled output
+OptovueServer/dist
+OptovueServer/node_modules
+
+# Logs
+OptovueServer/logs
+OptovueServer/*.log
+OptovueServer/npm-debug.log*
+OptovueServer/pnpm-debug.log*
+OptovueServer/yarn-debug.log*
+OptovueServer/yarn-error.log*
+OptovueServer/lerna-debug.log*
+
+# OS
+OptovueServer/.DS_Store
+
+# Tests
+OptovueServer/coverage
+OptovueServer/.nyc_output
+
+# IDEs and editors
+OptovueServer/.idea
+OptovueServer/.project
+OptovueServer/.classpath
+OptovueServer/.c9/
+OptovueServer/*.launch
+OptovueServer/.settings/
+OptovueServer/*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
