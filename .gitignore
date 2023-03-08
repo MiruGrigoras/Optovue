@@ -1,9 +1,10 @@
+#-----------------Recorder----------------
 .vs/
 OptovueApp/.vs/
 OptovueApp/OptovueApp/obj/
 OptovueApp/OptovueApp/bin
 
-
+#-----------------Server----------------
 # compiled output
 OptovueServer/dist
 OptovueServer/node_modules
@@ -39,3 +40,36 @@ OptovueServer/*.sublime-workspace
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+#------------------WebApp-----------------
+# Compiled output
+WebApp/web-video-player/dist
+WebApp/web-video-player/tmp
+WebApp/web-video-player/out-tsc
+WebApp/web-video-player/bazel-out
+
+# Node
+WebApp/web-video-player/node_modules
+WebApp/web-video-player/npm-debug.log
+WebApp/web-video-player/yarn-error.log
+
+# Visual Studio Code
+WebApp/web-video-player/.vscode/*
+!WebApp/web-video-player/.vscode/settings.json
+!WebApp/web-video-player/.vscode/tasks.json
+!WebApp/web-video-player/.vscode/launch.json
+!WebApp/web-video-player/.vscode/extensions.json
+WebApp/web-video-player/.history/*
+
+# Miscellaneous
+WebApp/web-video-player/.angular/cache
+WebApp/web-video-player.sass-cache/
+WebApp/web-video-player/connect.lock
+WebApp/web-video-player/coverage
+WebApp/web-video-player/libpeerconnection.log
+WebApp/web-video-player/testem.log
+WebApp/web-video-player/typings
+
+# System files
+WebApp/web-video-player/.DS_Store
+WebApp/web-video-player/Thumbs.db
