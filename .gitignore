@@ -8,6 +8,7 @@ OptovueApp/OptovueApp/bin
 # compiled output
 OptovueServer/dist
 OptovueServer/node_modules
+OptovueServer/yarn.lock
 
 # Logs
 OptovueServer/logs
@@ -47,6 +48,7 @@ WebApp/web-video-player/dist
 WebApp/web-video-player/tmp
 WebApp/web-video-player/out-tsc
 WebApp/web-video-player/bazel-out
+WebApp/web-video-player/yarn.lock
 
 # Node
 WebApp/web-video-player/node_modules
