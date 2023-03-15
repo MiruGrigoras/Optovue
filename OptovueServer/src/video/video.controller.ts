@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Headers, Response } from '@nestjs/common';
+import { Body, Controller, Post, Headers, Response } from '@nestjs/common';
 import { Response as Res } from 'express';
 import { VideoService } from './video.service';
 
@@ -6,12 +6,12 @@ import { VideoService } from './video.service';
 export class VideoController {
   constructor(private readonly videoService: VideoService) {}
 
-  @Get()
-  printSmth(
+  @Post()
+  getVideo(
     @Body('name') videoName: string,
     @Headers('range') range: string,
-    @Response() response: Res,
+    @Response() res: Res,
   ) {
-    return this.videoService.getVideoFromDatabase(videoName, range, response);
+    this.videoService.getVideoFromDatabase(videoName, range, res);
   }
 }

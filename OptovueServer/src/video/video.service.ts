@@ -31,6 +31,7 @@ export class VideoService {
         'Accept-Ranges': 'bytes',
         'Content-Length': chunksize,
         'Content-Type': 'video/mp4',
+        'Access-Control-Allow-Origin': '*',
       };
       res.set(head);
       res.status(206);
@@ -39,13 +40,12 @@ export class VideoService {
       const head = {
         'Content-Length': fileSize,
         'Content-Type': 'video/mp4',
+        'Access-Control-Allow-Origin': '*',
       };
 
       res.set(head);
       res.status(200);
       createReadStream(path).pipe(res);
     }
-
-    return name;
   }
 }
