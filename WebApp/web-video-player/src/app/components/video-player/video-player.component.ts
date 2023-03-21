@@ -16,7 +16,9 @@ export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
   url: string = "";
 
   constructor(private httpClient: HttpClient, private elRef: ElementRef) { 
-    const name = "ocean.mp4"
+    console.log("Constructor");
+    
+    const name = "coast.mp4"
     let bodyParams = new HttpParams();
     bodyParams = bodyParams.append("name", name);
     let headerParams = new HttpHeaders();
@@ -33,7 +35,10 @@ export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.player = videojs("video-player");
+    this.player = videojs("video-player", {
+      suppressNotSupportedError: true,
+      autoplay: true,
+    });
   }
 
   ngOnDestroy(): void {
