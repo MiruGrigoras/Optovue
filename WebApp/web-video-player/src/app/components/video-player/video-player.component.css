@@ -1,0 +1,6 @@
+.video-js /deep/ .vjs-play-progress{
+    background-color:rgba(30, 73, 226, 1);
+}
+.video-js /deep/ .vjs-load-progress{
+    background-color: rgba(30, 73, 226, 0,5);
+}
