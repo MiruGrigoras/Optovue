@@ -1,11 +1,7 @@
 import { HttpParams, HttpHeaders, HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, SimpleChanges, ViewChild } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
-import { VideoPlayerService } from 'src/app/services/video-player.service';
-import { VideoJsOptions } from "src/models/videojs-options";
-//declare const videojs: any;
+import { AfterViewInit, Component, ElementRef, OnDestroy } from '@angular/core';
 import videojs from 'video.js';
-import Player from 'video.js/dist/types/player';
+import 'videojs-markers';
 @Component({
   selector: 'app-video-player',
   templateUrl: './video-player.component.html',
@@ -16,9 +12,7 @@ export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
   url: string = "";
 
   constructor(private httpClient: HttpClient, private elRef: ElementRef) { 
-    console.log("Constructor");
-    
-    const name = "coast.mp4"
+    const name = "ocean.mp4"
     let bodyParams = new HttpParams();
     bodyParams = bodyParams.append("name", name);
     let headerParams = new HttpHeaders();
@@ -30,6 +24,19 @@ export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
         this.player.src({
           src: this.url,
           type:"video/mp4",
+        });
+        this.player.markers({
+          markerStyle: {
+             'width':'3px',
+             'background-color': 'white',
+             'border-radius': '50%',
+          },
+          markers:[
+            {time: 3, text: "Task 1"},
+            {time: 5, text: "Task 2"},
+            {time: 12, text: "Task 3"},
+            {time: 17, text: "Task 4"},
+          ]
         });
       });
   }
