@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { VideoModule } from './video/video.module';
-import { ProcessModule } from './process/process.module';
+import { ProcessModuleORM } from './process/process.module';
 
 @Module({
-  imports: [VideoModule, ProcessModule],
+  imports: [VideoModule, ProcessModuleORM],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -1,4 +1,6 @@
+import { Sequelize } from 'sequelize-typescript';
 import { DATA_SOURCE } from 'src/constants';
+import { Process } from 'src/process/process.entity';
 import { DataSource } from 'typeorm';
 
 export const databaseProviders = [
@@ -8,9 +10,9 @@ export const databaseProviders = [
       const dataSource = new DataSource({
         type: 'mssql',
         host: 'localhost',
-        port: 56372,
+        port: 1433,
         username: 'Test',
-        password: '1234',
+        password: '12341234',
         database: 'BluePrism',
         extra: {
           trustedConnection: true,
