@@ -48,4 +48,40 @@ export class VideoService {
       createReadStream(path).pipe(res);
     }
   }
+
+  timeStringToSeconds(time: string): number {
+    const [hours, minutes, seconds] = time.split(':');
+    const totalSeconds = +hours * 60 * 60 + +minutes * 60 + +seconds;
+    return totalSeconds;
+  }
+
+  cropVideo(name: string, startTime: string, endTime: string): any {
+    const path = VIDEO_PATH + name;
+    if (path === VIDEO_PATH) {
+      throw new HttpException(
+        'Error 404, no video found with that name.',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
+    const ffmpeg = require('fluent-ffmpeg');
+    ffmpeg.setFfmpegPath(ffmpegPath);
+    const duration =
+      this.timeStringToSeconds(endTime) - this.timeStringToSeconds(startTime);
+    const output_path = path + '_trimmed.mp4';
+
+    ffmpeg(path)
+      .setStartTime(startTime)
+      .setDuration(duration)
+      .output(output_path)
+      .on('end', function (err) {
+        if (!err) {
+          console.log('conversion Done');
+          return output_path;
+        }
+      })
+      .on('error', (err) => console.log('error: ', err))
+      .run();
+  }
 }
