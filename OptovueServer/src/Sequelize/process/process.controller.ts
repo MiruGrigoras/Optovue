@@ -7,6 +7,7 @@ export class ProcessController {
 
   @Get()
   getProcesses() {
-    return this.processService.findAll();
+    const processes = this.processService.findAll();
+    return JSON.stringify(processes) + 'Some text';
   }
 }
