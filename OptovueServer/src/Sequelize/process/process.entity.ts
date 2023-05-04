@@ -1,4 +1,5 @@
 import {
+  AllowNull,
   Column,
   CreatedAt,
   Model,
@@ -9,10 +10,10 @@ import {
 import { DataTypes } from 'sequelize';
 
 @Table({ tableName: 'BPAProcess', schema: 'dbo' })
-export class BPAProcess extends Model<BPAProcess> {
+export class Process extends Model {
   @Unique
   @Column({ type: DataTypes.UUID, primaryKey: true })
-  processid: number;
+  processid: string;
 
   @Column({ type: DataTypes.STRING(1) })
   ProcessType: string;
@@ -20,9 +21,11 @@ export class BPAProcess extends Model<BPAProcess> {
   @Column({ type: DataTypes.STRING(128) })
   name: string;
 
+  @AllowNull
   @Column({ type: DataTypes.STRING(1000) })
   description: string;
 
+  @AllowNull
   @Column({ type: DataTypes.STRING(20) })
   version: string;
 
@@ -45,12 +48,15 @@ export class BPAProcess extends Model<BPAProcess> {
   @Column({ type: DataTypes.INTEGER })
   AttributeID: number;
 
+  @AllowNull
   @Column({ type: DataTypes.BLOB })
   compressedxml: string;
 
+  @AllowNull
   @Column({ type: DataTypes.STRING })
   processxml: string;
 
+  @AllowNull
   @Column({ type: DataTypes.STRING(255) })
   wspublishname: string;
 

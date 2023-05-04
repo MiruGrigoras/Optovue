@@ -3,9 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { VideoModule } from './video/video.module';
 import { ProcessModule } from './Sequelize/process/process.module';
+import { UserModule } from './Sequelize/user/user.module';
 
 @Module({
-  imports: [VideoModule, ProcessModule],
+  imports: [VideoModule, ProcessModule, UserModule],
   controllers: [AppController],
   providers: [AppService],
 })
