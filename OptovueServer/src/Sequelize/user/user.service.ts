@@ -12,17 +12,28 @@ export class UserService {
     private userRepository: typeof User,
   ) {}
 
-  async findAll(): Promise<object[]> {
-    console.log(this.userRepository.getTableName() + 'Empty??');
-    const users = await sequelize.getRepository(User).findAll({
-      attributes: ['userid'],
+  async findAll(): Promise<User[]> {
+    const users = await this.userRepository.findAll<User>({
+      attributes: ['userid', 'loginattempts'],
     });
-    // const users = await this.userRepository.sequelize.query(
-    //   'SELECT [userid] FROM [BluePrism].[dbo].[BPAUser];',
-    //   { type: QueryTypes.SELECT },
-    // );
-    return users; //.map((process) => new ProcessDB(process));
+    console.log(users);
+    return users;
   }
+  // async findAll(): Promise<User[]> {
+  //   console.log(this.userRepository.getTableName() + 'Empty??');
+
+  //   console.log('SEQUELIZE DUPA: ', sequelize);
+  //   // const users = await this.userRepository.findAll<User>();
+  //   const users = await sequelize
+  //     .getRepository(User)
+  //     .findAll<User>({ attributes: ['userid'] });
+  //   console.log('RETURN FROM GET: ', users);
+  //   // const users = await this.userRepository.sequelize.query(
+  //   //   'SELECT [userid] FROM [BluePrism].[dbo].[BPAUser];',
+  //   //   { type: QueryTypes.SELECT },
+  //   // );
+  //   return null; //.map((process) => new ProcessDB(process));
+  // }
 
   async addNew() {
     // await this.userRepository.create({
