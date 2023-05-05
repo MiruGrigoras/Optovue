@@ -4,9 +4,10 @@ import { AppService } from './app.service';
 import { VideoModule } from './video/video.module';
 import { ProcessModule } from './process/process.module';
 import { UserModule } from './user/user.module';
+import { SessionModule } from './session/session.module';
 
 @Module({
-  imports: [VideoModule, ProcessModule, UserModule],
+  imports: [VideoModule, ProcessModule, UserModule, SessionModule],
   controllers: [AppController],
   providers: [AppService],
 })
