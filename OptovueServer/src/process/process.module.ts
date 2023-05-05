@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { processProviders } from './process.providers';
 import { ProcessService } from './process.service';
-import { DatabaseModule } from 'src/database/database.module';
 import { ProcessController } from './process.controller';
+import { DatabaseModule } from '../database/database.module';
 
 @Module({
   imports: [DatabaseModule],
-  providers: [...processProviders, ProcessService],
   controllers: [ProcessController],
+  providers: [ProcessService, ...processProviders],
 })
-export class ProcessModuleORM {}
+export class ProcessModule {}
