@@ -4,7 +4,6 @@ import { Process } from './process/process.entity';
 import { User } from './user/user.entity';
 import Sequelize from 'sequelize';
 
-export let sequelize: Seq;
 Sequelize.DATE.prototype._stringify = function _stringify(date, options) {
   date = this._applyTimezone(date, options);
   return date.format('YYYY-MM-DD HH:mm:ss.SSS');
@@ -14,7 +13,7 @@ export const databaseProviders = [
   {
     provide: SEQUELIZE,
     useFactory: async () => {
-      sequelize = new Seq({
+      const sequelize = new Seq({
         host: 'localhost',
         port: 1433,
         username: 'Test',
