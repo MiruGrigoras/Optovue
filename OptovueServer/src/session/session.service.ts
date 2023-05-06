@@ -13,4 +13,18 @@ export class SessionService {
       attributes: ['sessionid'],
     });
   }
+
+  async findSessionsByProcessId(processIdParam: string): Promise<Session[]> {
+    console.log('We are here');
+    const sessions = await this.sessionRepository.findAll<Session>({
+      attributes: ['sessionid'],
+      where: {
+        processid: processIdParam,
+      },
+      order: [['startdatetime', 'DESC']],
+    });
+
+    console.log('Session for processid: ', sessions, sessions[0].sessionid);
+    return sessions;
+  }
 }

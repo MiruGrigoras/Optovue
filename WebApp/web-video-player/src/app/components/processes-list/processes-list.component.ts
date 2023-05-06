@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 })
 export class ProcessesListComponent implements OnInit {
   allProcesses: Process[] = [];
-  displayedColumns: string[] = ['process_id', 'see_cases'];
 
   constructor(private httpClient: HttpClient, private router: Router){
   }
@@ -27,11 +26,12 @@ export class ProcessesListComponent implements OnInit {
     }))
     .subscribe((processes)=>{
       this.allProcesses = processes;
-      console.log(processes);
     })
   }
 
-  navigateToCases(){
-    this.router.navigateByUrl('/video');
+  navigateToCases(processid: string){
+    this.router.navigate(
+      ['/cases'],
+      { queryParams: {processid: processid}});
   }
 }

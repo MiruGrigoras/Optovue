@@ -74,7 +74,7 @@ export class QueueItem extends Model {
 
   @AllowNull
   @Column
-  finished: boolean;
+  finished: Date;
 
   @AllowNull
   @Column
