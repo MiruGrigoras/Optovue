@@ -1,2 +1,18 @@
-<p>sessions-list works!</p>
-<div *ngFor="let session of allSessions">{{session.sessionid}}</div>
+
+<div class="container">
+    <table class="mat-mdc-table mdc-data-table__table cdk-table mat-elevation-z3">
+        <tr class="mat-mdc-header-row mdc-data-table__header-row cdk-header-row">
+            <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-session_id mat-column-session_id"></th>
+            <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-session_id mat-column-session_id">Session Id</th>
+            
+        </tr>
+        <tr *ngFor="let session of allSessions" class="mat-mdc-row mdc-data-table__row cdk-row">
+            <td class="center">
+                <button mat-icon-button>
+                    <mat-icon>more_horiz</mat-icon>
+                </button>   
+            </td>   
+            <td>{{session.sessionid}}</td>
+        </tr>
+    </table>
+</div>

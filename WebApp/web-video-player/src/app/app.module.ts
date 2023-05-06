@@ -8,9 +8,12 @@ import { VideoPlayerComponent } from "./components/video-player/video-player.com
 import { SessionsListComponent } from './components/sessions-list/sessions-list.component';
 import { VideoPlayerService } from "./services/video-player.service";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button'
+
+
 import { RouterModule, Routes } from "@angular/router";
 
 const appRoute:Routes =[
@@ -20,7 +23,17 @@ const appRoute:Routes =[
 ] 
 @NgModule({
   declarations: [AppComponent, VideoPlayerComponent, SessionsListComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, RouterModule.forRoot(appRoute), BrowserAnimationsModule, MatGridListModule, MatIconModule, MatButtonModule],
+  imports: [
+    BrowserModule, 
+    AppRoutingModule, 
+    HttpClientModule, 
+    RouterModule.forRoot(appRoute), 
+    BrowserAnimationsModule, 
+    MatGridListModule,
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule
+  ],
   providers: [VideoPlayerService],
   bootstrap: [AppComponent],
 })
