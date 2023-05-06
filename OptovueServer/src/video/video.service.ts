@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Response } from 'express';
-import { createReadStream, statSync } from 'fs';
+import { createReadStream, createWriteStream, statSync } from 'fs';
 
 const currentFile = require.main.filename;
 
@@ -55,8 +55,8 @@ export class VideoService {
     return totalSeconds;
   }
 
-  cropVideo(name: string, startTime: string, endTime: string): any {
-    const path = VIDEO_PATH + name;
+  cropVideo(sessionid: string, startTime: string, endTime: string, res: Response): any {
+    const path = VIDEO_PATH + sessionid + ".mp4";
     if (path === VIDEO_PATH) {
       throw new HttpException(
         'Error 404, no video found with that name.',
@@ -68,24 +68,23 @@ export class VideoService {
     const ffmpeg = require('fluent-ffmpeg');
     ffmpeg.setFfmpegPath(ffmpegPath);
     const duration =
-      this.timeStringToSeconds(endTime) - this.timeStringToSeconds(startTime);
-    const output_path = path + '_trimmed.mp4';
-    
-    ffmpeg(path)
-      .setStartTime(startTime)
-      .setDuration(duration)
-      .output(output_path)
-      .on('end', function (err) {
-        if (!err) {
-          console.log('conversion Done');
-          return output_path;
-        }
-      })
-      .on('error', (err) => console.log('error: ', err))
-      .run();
-  }
+    this.timeStringToSeconds(endTime) - this.timeStringToSeconds(startTime);
 
-  getExceptionTime(case_id: string, session_id: string): string {
-    return '00:00:10'; //returns a timestamps
+    const head = {
+      'Content-Type': 'video/mp4',
+      'Access-Control-Allow-Origin': '*',
+    };
+    res.set(head);
+
+    ffmpeg(path)
+    .setStartTime(startTime)
+    .setDuration(duration)
+    .videoCodec('libx264')
+    .audioCodec('aac')
+    .outputFormat('mp4')
+    .outputOptions([
+        '-movflags frag_keyframe+empty_moov'
+    ])
+    .pipe(res, { end: true });
   }
 }
