@@ -4,3 +4,17 @@
 .video-js /deep/ .vjs-load-progress{
     background-color: rgba(30, 73, 226, 0,5);
 }
+
+#overlay-button {
+    background-color: #696969;
+    border: none;
+    position: absolute;
+    top: 70%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    width: 200px; /* Set the width of the button to 100px */
+    height: 50px; /* Set the height of the button to 50px */
+    color:white;
+  }
+  
