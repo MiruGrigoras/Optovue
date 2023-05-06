@@ -70,7 +70,7 @@ export class VideoService {
     const duration =
       this.timeStringToSeconds(endTime) - this.timeStringToSeconds(startTime);
     const output_path = path + '_trimmed.mp4';
-
+    
     ffmpeg(path)
       .setStartTime(startTime)
       .setDuration(duration)
@@ -83,5 +83,9 @@ export class VideoService {
       })
       .on('error', (err) => console.log('error: ', err))
       .run();
+  }
+
+  getExceptionTime(case_id: string, session_id: string): string {
+    return '00:00:10'; //returns a timestamps
   }
 }

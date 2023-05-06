@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Headers, Response, Get, Query } from '@nestjs/common';
+import { Body, Controller, Post, Headers, Response, Get, Query, Param } from '@nestjs/common';
 import { Response as Res } from 'express';
 import { VideoService } from './video.service';
 
@@ -22,5 +22,13 @@ export class VideoController {
     @Query('end_time') end_time: string,
   ): string {
     return this.videoService.cropVideo(videoName, start_time, end_time);
+  }
+
+  @Get('/getExceptionTime')
+  getExceptionTime(
+    @Query('case_id') case_id: string,
+    @Query('session_id') session_id: string,
+  ): string {
+    return this.videoService.getExceptionTime(case_id, session_id);
   }
 }
