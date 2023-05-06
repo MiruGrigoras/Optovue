@@ -15,20 +15,13 @@ export class VideoController {
     this.videoService.getVideoFromDatabase(videoName, range, res);
   }
 
-  @Get('/crop')
+  @Post('/crop')
   cropVideo(
     @Query('name') videoName: string,
     @Query('start_time') start_time: string,
     @Query('end_time') end_time: string,
-  ): string {
-    return this.videoService.cropVideo(videoName, start_time, end_time);
-  }
-
-  @Get('/getExceptionTime')
-  getExceptionTime(
-    @Query('case_id') case_id: string,
-    @Query('session_id') session_id: string,
-  ): string {
-    return this.videoService.getExceptionTime(case_id, session_id);
+    @Response() res: Res,
+  ){
+    return this.videoService.cropVideo(videoName, start_time, end_time, res);
   }
 }

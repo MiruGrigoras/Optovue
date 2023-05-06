@@ -41,25 +41,9 @@ export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
       });
   }
 
-
-  skipToException(): void{ //exp string  '04 Dec 1995 00:00:10 GMT'
-    //get exception time from endpoint
-    console.log("is called");
-
-    const params = new HttpParams()
-      .set('case_id', 'value1')
-      .set('session_id', 'value2');
-    
-    console.log("is called");
-
-    this.httpClient
-    .get("http://localhost:3000/video/getExceptionTime", {params, responseType: 'text'})
-    .subscribe((res) => {
-      console.log(res);
-      const [hours, minutes, seconds] = res.toString().split(':');
-      const totalSeconds = +hours * 60 * 60 + +minutes * 60 + +seconds;
-      this.player.currentTime(totalSeconds);
-    });
+  skipToException(): void{ 
+      //TODO: take time of exception from local storage
+      this.player.currentTime(5);
   }
 
   ngAfterViewInit(): void {
@@ -74,5 +58,4 @@ export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
       this.player.dispose();
     }
   }
-
 }
