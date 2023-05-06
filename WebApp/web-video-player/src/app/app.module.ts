@@ -8,9 +8,12 @@ import { VideoPlayerComponent } from "./components/video-player/video-player.com
 import { VideoPlayerService } from "./services/video-player.service";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+
 @NgModule({
   declarations: [AppComponent, VideoPlayerComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, BrowserAnimationsModule, MatGridListModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, BrowserAnimationsModule, MatGridListModule, MatIconModule, MatButtonModule],
   providers: [VideoPlayerService],
   bootstrap: [AppComponent],
 })

@@ -4,7 +4,6 @@
 .video-js /deep/ .vjs-load-progress{
     background-color: rgba(30, 73, 226, 0,5);
 }
-
 #overlay-button {
     background-color: #696969;
     border: none;
