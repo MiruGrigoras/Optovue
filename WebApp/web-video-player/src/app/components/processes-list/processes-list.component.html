@@ -1,0 +1,24 @@
+
+<div class="container">
+    <table class="mat-mdc-table mdc-data-table__table cdk-table mat-elevation-z3">
+        <tr class="mat-mdc-header-row mdc-data-table__header-row cdk-header-row">
+            <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-process_id mat-column-process_id"></th>
+            <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-process_id mat-column-process_id">Process Name</th>
+            
+        </tr>
+        <tr *ngFor="let process of allProcesses" class="mat-mdc-row mdc-data-table__row cdk-row">
+            <td class="center">
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_horiz</mat-icon>
+                </button>   
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="navigateToCases()">
+                        <mat-icon>visibility</mat-icon>
+                        Show cases
+                    </button>
+                  </mat-menu>
+            </td>   
+            <td>{{process.name}}</td>
+        </tr>
+    </table>
+</div>

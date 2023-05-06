@@ -5,24 +5,25 @@ import { AppRoutingModule } from "./app-routing.module";
 import { HttpClientModule } from "@angular/common/http";
 import { AppComponent } from "./app.component";
 import { VideoPlayerComponent } from "./components/video-player/video-player.component";
-import { SessionsListComponent } from './components/sessions-list/sessions-list.component';
+import { ProcessesListComponent } from './components/processes-list/processes-list.component';
 import { VideoPlayerService } from "./services/video-player.service";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 import { RouterModule, Routes } from "@angular/router";
 
 const appRoute:Routes =[
-  {path: '', redirectTo:'sessions', pathMatch: 'full'},
-  {path: 'sessions', component: SessionsListComponent},
+  {path: '', redirectTo:'processes', pathMatch: 'full'},
+  {path: 'processes', component: ProcessesListComponent},
   {path: 'video', component: VideoPlayerComponent}
 ] 
 @NgModule({
-  declarations: [AppComponent, VideoPlayerComponent, SessionsListComponent],
+  declarations: [AppComponent, VideoPlayerComponent, ProcessesListComponent],
   imports: [
     BrowserModule, 
     AppRoutingModule, 
@@ -32,7 +33,8 @@ const appRoute:Routes =[
     MatGridListModule,
     MatTableModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatMenuModule
   ],
   providers: [VideoPlayerService],
   bootstrap: [AppComponent],
