@@ -3,6 +3,7 @@
         <tr class="mat-mdc-header-row mdc-data-table__header-row cdk-header-row">
             <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-process_id mat-column-process_id"></th>
             <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-process_id mat-column-process_id">Key</th>
+            <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-process_id mat-column-process_id"></th>
             <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-process_id mat-column-process_id">Created</th>
             <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-process_id mat-column-process_id">Finished</th>
             
@@ -14,6 +15,11 @@
                 </button>   
             </td>   
             <td>{{case.id}}</td>
+            <td class="center">
+                <button mat-icon-button (click)="navigateToVideo(case.sessionid, case.id, case.loaded, case.finished)">
+                    <mat-icon>play_arrow</mat-icon>
+                </button>   
+            </td>
             <td>{{case.loaded}}</td>
             <td>{{case.finished}}</td>
         </tr>
