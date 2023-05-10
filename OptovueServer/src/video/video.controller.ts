@@ -17,11 +17,11 @@ export class VideoController {
 
   @Post('/crop')
   cropVideo(
-    @Query('name') videoName: string,
-    @Query('start_time') start_time: string,
-    @Query('end_time') end_time: string,
+    @Body('name') videoName: string,
+    @Body('start_time') start_time: string,
+    @Body('end_time') end_time: string,
     @Response() res: Res,
-  ){
+  ) {
     return this.videoService.cropVideo(videoName, start_time, end_time, res);
   }
 }

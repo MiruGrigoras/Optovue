@@ -10,6 +10,7 @@ const VIDEO_PATH =
 
 @Injectable()
 export class VideoService {
+  //to get full session video
   getVideoFromDatabase(name: string, range: string, res: Response): any {
     const path = VIDEO_PATH + name;
     if (path === VIDEO_PATH) {
@@ -18,35 +19,25 @@ export class VideoService {
         HttpStatus.NOT_FOUND,
       );
     }
-    const fileSize = statSync(path).size;
-    if (range) {
-      const parts = range.replace(/bytes=/, '').split('-');
-      const start = parseInt(parts[0], 10);
-      const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
 
-      const chunksize = end - start + 1;
-      const file = createReadStream(path, { start, end });
-      const head = {
-        'Content-Range': `bytes ${start}-${end}/${fileSize}`,
-        'Accept-Ranges': 'bytes',
-        'Content-Length': chunksize,
-        'Content-Type': 'video/mp4',
-        'Access-Control-Allow-Origin': '*',
-      };
-      res.set(head);
-      res.status(206);
-      file.pipe(res);
-    } else {
-      const head = {
-        'Content-Length': fileSize,
-        'Content-Type': 'video/mp4',
-        'Access-Control-Allow-Origin': '*',
-      };
+    const head = {
+      'Content-Type': 'video/mp4',
+      'Access-Control-Allow-Origin': '*',
+    };
+    res.set(head);
+    res.status(200);
 
-      res.set(head);
-      res.status(200);
-      createReadStream(path).pipe(res);
-    }
+    const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
+    const ffmpeg = require('fluent-ffmpeg');
+    ffmpeg.setFfmpegPath(ffmpegPath);
+    ffmpeg(path)
+      .videoCodec('copy')
+      .audioCodec('copy')
+      .outputFormat('mp4')
+      .outputOptions([
+        '-movflags frag_keyframe+empty_moov'
+      ])
+      .pipe(res, { end: true });
   }
 
   timeStringToSeconds(time: string): number {
@@ -79,8 +70,8 @@ export class VideoService {
     ffmpeg(path)
     .setStartTime(startTime)
     .setDuration(duration)
-    .videoCodec('libx264')
-    .audioCodec('aac')
+    .videoCodec('copy')
+    .audioCodec('copy')
     .outputFormat('mp4')
     .outputOptions([
         '-movflags frag_keyframe+empty_moov'

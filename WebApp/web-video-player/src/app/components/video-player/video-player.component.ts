@@ -11,14 +11,18 @@ export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
   player: any;
   url: string = "";
 
-  constructor(private httpClient: HttpClient, private elRef: ElementRef) { 
-    const name = "ocean.mp4"
+  constructor(private httpClient: HttpClient, private elRef: ElementRef) {
+    //TODO: change parameters with real values from log
+    const name = "ffmpeg_output.mp4"
+    // let bodyParams = new HttpParams();
+    // bodyParams = bodyParams.append("name", name);
     let bodyParams = new HttpParams();
-    bodyParams = bodyParams.append("name", name);
-    let headerParams = new HttpHeaders();
-    headerParams = headerParams.append("range", name);
+    bodyParams = bodyParams.append("name", "ffmpeg_output");
+    bodyParams = bodyParams.append("start_time", '00:00:00');
+    bodyParams = bodyParams.append("end_time", '00:01:10');
+   
     this.httpClient
-      .post("http://localhost:3000/video",bodyParams,{ responseType: "blob"})
+      .post("http://localhost:3000/video/crop",bodyParams,{ responseType: "blob"})
       .subscribe((res) => {
         this.url =  URL.createObjectURL(res);
         this.player.src({
