@@ -17,15 +17,16 @@ import { MatMenuModule } from '@angular/material/menu';
 
 import { RouterModule, Routes } from "@angular/router";
 import { CasesListComponent } from './components/cases-list/cases-list.component';
+import { RecordingViewComponent } from './components/recording-view/recording-view.component';
 
 const appRoute:Routes =[
   {path: '', redirectTo:'processes', pathMatch: 'full'},
   {path: 'processes', component: ProcessesListComponent},
-  {path: 'video', component: VideoPlayerComponent},
+  {path: 'video', component: RecordingViewComponent},
   {path: 'cases', component: CasesListComponent},
 ] 
 @NgModule({
-  declarations: [AppComponent, VideoPlayerComponent, ProcessesListComponent, CasesListComponent],
+  declarations: [AppComponent, VideoPlayerComponent, ProcessesListComponent, CasesListComponent, RecordingViewComponent],
   imports: [
     BrowserModule, 
     AppRoutingModule, 

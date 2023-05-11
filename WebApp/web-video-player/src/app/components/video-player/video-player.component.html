@@ -4,16 +4,18 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet" />
 
-<mat-grid-list cols="12" rowHeight="300px">
-    <mat-grid-tile [colspan]=1 [rowspan]=3></mat-grid-tile> 
-    <mat-grid-tile [colspan]=8 [rowspan]=3>
-        <div class="video-js-responsive-container">
-            <video id="video-player" class="video-js vjs-big-play-centered " controls autoplay preload loadingSpinner height=480
-                width=900 type="video/mp4" [src]=this.url>
-            </video>
-            <button (click)="skipToException()" mat-stroked-button id="overlay-button">Jump to exception
-                <mat-icon>skip_next</mat-icon>
-            </button>
-        </div>
-    </mat-grid-tile>
-</mat-grid-list>
+<div>
+    <div >
+        <video id="video-player" class="video-js vjs-big-play-centered video-player-dim" controls autoplay preload loadingSpinner type="video/mp4" [src]=this.url>
+        </video>
+    </div>
+    <button 
+        (click)="skipToException()" 
+        mat-stroked-button 
+        id="overlay-button"
+        [style.top.px]="getButtonTop()"
+        [style.left.px]="getButtonLeft()">
+        Jump to exception
+        <mat-icon>skip_next</mat-icon>
+    </button>
+</div>

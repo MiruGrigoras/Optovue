@@ -70,7 +70,8 @@ export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
           console.log({mappedStartTime, mappedEndTime});
           
 
-          bodyParams = bodyParams.append("name", sessionid);
+          // bodyParams = bodyParams.append("name", sessionid);
+          bodyParams = bodyParams.append("name", "ffmpeg_output");
           bodyParams = bodyParams.append("start_time", "00:00:01");
           bodyParams = bodyParams.append("end_time", "00:01:20");
           this.httpClient
@@ -115,5 +116,18 @@ export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
     if (this.player) {
       this.player.dispose();
     }
+  }
+  
+  getButtonTop(): number{
+    const player = document.getElementById("video-player");
+    const heightPlayer = player?.clientHeight;
+    return heightPlayer? window.innerHeight/2 + heightPlayer/2 - 100 : 0;
+  }
+  
+  getButtonLeft(): number{
+    const player = document.getElementById("video-player");
+    const button = document.getElementById('overlay-button')
+    const widthPlayer = player?.clientWidth;
+    return widthPlayer && button? widthPlayer - button.clientWidth - 50 : 0;
   }
 }
