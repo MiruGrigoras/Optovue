@@ -14,7 +14,7 @@
     height: 50px; /* Set the height of the button to 50px */
   }
 
-.video-player-dim {
+ .video-player-dim {
     position: absolute;
     width: 100%;
     top: 50%;
@@ -23,11 +23,3 @@
     height: auto;
     padding-bottom: 56.25%;
   }
-
-.video-js .vjs-tech {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding-bottom: 56.25%;
-}

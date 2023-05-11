@@ -13,11 +13,15 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 
 
 import { RouterModule, Routes } from "@angular/router";
 import { CasesListComponent } from './components/cases-list/cases-list.component';
 import { RecordingViewComponent } from './components/recording-view/recording-view.component';
+import { TasksDrawerComponent } from './components/tasks-drawer/tasks-drawer.component';
 
 const appRoute:Routes =[
   {path: '', redirectTo:'processes', pathMatch: 'full'},
@@ -26,7 +30,7 @@ const appRoute:Routes =[
   {path: 'cases', component: CasesListComponent},
 ] 
 @NgModule({
-  declarations: [AppComponent, VideoPlayerComponent, ProcessesListComponent, CasesListComponent, RecordingViewComponent],
+  declarations: [AppComponent, VideoPlayerComponent, ProcessesListComponent, CasesListComponent, RecordingViewComponent, TasksDrawerComponent],
   imports: [
     BrowserModule, 
     AppRoutingModule, 
@@ -37,7 +41,10 @@ const appRoute:Routes =[
     MatTableModule,
     MatIconModule,
     MatButtonModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSidenavModule,
+    MatDividerModule,
+    MatListModule
   ],
   providers: [VideoPlayerService],
   bootstrap: [AppComponent],

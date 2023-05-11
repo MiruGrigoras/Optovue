@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./recording-view.component.css']
 })
 export class RecordingViewComponent {
-
+  showFiller = false;
 }
