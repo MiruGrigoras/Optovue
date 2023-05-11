@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Headers, Response, Get, Query, Param } from '@nestjs/common';
+import { Body, Controller, Post, Headers, Response } from '@nestjs/common';
 import { Response as Res } from 'express';
 import { VideoService } from './video.service';
 
