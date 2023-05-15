@@ -16,11 +16,11 @@
             </td>   
             <td>{{case.id}}</td>
             <td class="center">
-                <button mat-icon-button (click)="navigateToVideo(case.sessionid, case.id, case.loaded, case.finished)">
+                <button mat-icon-button (click)="navigateToVideo(case.sessionid, case.id, case.started, case.finished)">
                     <mat-icon>play_arrow</mat-icon>
                 </button>   
             </td>
-            <td>{{case.loaded}}</td>
+            <td>{{case.started}}</td>
             <td>{{case.finished}}</td>
         </tr>
     </table>

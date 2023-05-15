@@ -60,20 +60,18 @@ export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
       else{
         //add post request towards session video with starting and finishing time 
         let bodyParams = new HttpParams();
-          const sessionStart =  new Date(localStorage.getItem(sessionid)!);
-          
-          const mappedStartTime = this.videoService.msToTime(+sessionStart - +new Date(startTime));
-          const mappedEndTime = this.videoService.msToTime(+sessionStart - +new Date(endTime));
+          const sessionStart =  new Date(JSON.parse(localStorage.getItem(sessionid)!).startdatetime);
+          sessionStart.setHours(sessionStart.getHours()-2)
+          const caseStart = new Date(startTime);
+          const caseEnd = new Date(endTime);
+          const mappedStartTime = this.videoService.msToTime(+caseStart - +sessionStart);
+          const mappedEndTime = this.videoService.msToTime(+caseEnd- +sessionStart );
 
           const item= localStorage.getItem(sessionid);
-          console.log({sessionid, caseid, item, startTime, endTime});
-          console.log({mappedStartTime, mappedEndTime});
           
-
-          // bodyParams = bodyParams.append("name", sessionid);
-          bodyParams = bodyParams.append("name", "ffmpeg_output");
-          bodyParams = bodyParams.append("start_time", "00:00:01");
-          bodyParams = bodyParams.append("end_time", "00:01:20");
+          bodyParams = bodyParams.append("name", sessionid);
+          bodyParams = bodyParams.append("start_time", mappedStartTime);
+          bodyParams = bodyParams.append("end_time", mappedEndTime);
           this.httpClient
             .post("http://localhost:3000/video/crop",bodyParams,{ responseType: "blob"})
             .subscribe((res) => {

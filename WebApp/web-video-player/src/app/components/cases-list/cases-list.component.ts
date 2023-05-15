@@ -44,7 +44,7 @@ export class CasesListComponent {
           .post('http://localhost:3000/session/sessionStartTime', bodyParams)
           .subscribe((res) => {
             const result: Session = res as Session;
-            localStorage.setItem(result.sessionid, result.startdatetime.toLocaleString());
+            localStorage.setItem(result.sessionid, JSON.stringify(result));
           })
 
         this.httpClient.get<{[key: string]:Case}>('http://localhost:3000/queueItem',{
@@ -60,6 +60,11 @@ export class CasesListComponent {
             return cases;
           }))
           .subscribe((cases)=>{
+            cases[0].started = cases[0].loaded;
+            if(cases.length > 1){
+              for (let i=1; i< cases.length; i++)
+                cases[i].started = cases[i-1].finished;
+            }
             this.allCases = cases;
           })
       }
