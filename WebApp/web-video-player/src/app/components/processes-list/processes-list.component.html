@@ -12,6 +12,10 @@
                     <mat-icon>more_horiz</mat-icon>
                 </button>   
                 <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="runProcess(process.name)">
+                        <mat-icon>play_arrow</mat-icon>
+                        Run
+                    </button>
                     <button mat-menu-item (click)="navigateToCases(process.processid)">
                         <mat-icon>visibility</mat-icon>
                         Show cases
