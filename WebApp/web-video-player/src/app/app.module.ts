@@ -6,7 +6,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { AppComponent } from "./app.component";
 import { VideoPlayerComponent } from "./components/video-player/video-player.component";
 import { ProcessesListComponent } from './components/processes-list/processes-list.component';
-import { VideoPlayerService } from "./services/video-player.service";
+import { TimeSyncService } from "./services/time-sync.service";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTableModule } from '@angular/material/table';
@@ -22,6 +22,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { CasesListComponent } from './components/cases-list/cases-list.component';
 import { RecordingViewComponent } from './components/recording-view/recording-view.component';
 import { TasksDrawerComponent } from './components/tasks-drawer/tasks-drawer.component';
+import { StageItemComponent } from './components/stage-item/stage-item.component';
 
 const appRoute:Routes =[
   {path: '', redirectTo:'processes', pathMatch: 'full'},
@@ -30,7 +31,7 @@ const appRoute:Routes =[
   {path: 'cases', component: CasesListComponent},
 ] 
 @NgModule({
-  declarations: [AppComponent, VideoPlayerComponent, ProcessesListComponent, CasesListComponent, RecordingViewComponent, TasksDrawerComponent],
+  declarations: [AppComponent, VideoPlayerComponent, ProcessesListComponent, CasesListComponent, RecordingViewComponent, TasksDrawerComponent, StageItemComponent],
   imports: [
     BrowserModule, 
     AppRoutingModule, 
@@ -46,7 +47,7 @@ const appRoute:Routes =[
     MatDividerModule,
     MatListModule
   ],
-  providers: [VideoPlayerService],
+  providers: [TimeSyncService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

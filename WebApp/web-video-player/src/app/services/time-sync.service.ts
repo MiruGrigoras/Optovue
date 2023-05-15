@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
 @Injectable()
-export class VideoPlayerService {
+export class TimeSyncService {
   constructor(private httpClient: HttpClient) {}
 
   msToTime(duration: number) {

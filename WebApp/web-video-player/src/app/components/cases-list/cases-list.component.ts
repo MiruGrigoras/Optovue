@@ -22,7 +22,6 @@ export class CasesListComponent {
   ngOnInit(): void{
     this.activatedRoute.queryParams.subscribe(params =>{
       const processidParam = params['processid'];
-      console.log("Routing: ", processidParam);
 
       if(processidParam == undefined){
         this.httpClient.get<{[key: string]:Case}>('http://localhost:3000/queueItem')

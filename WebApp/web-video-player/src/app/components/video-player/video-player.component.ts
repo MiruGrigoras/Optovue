@@ -1,7 +1,7 @@
 import { HttpParams, HttpHeaders, HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, ElementRef, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { VideoPlayerService } from 'src/app/services/video-player.service';
+import { TimeSyncService } from 'src/app/services/time-sync.service';
 import videojs from 'video.js';
 import 'videojs-markers';
 @Component({
@@ -16,7 +16,7 @@ export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
   constructor(
     private httpClient: HttpClient, 
     private activatedRoute: ActivatedRoute,
-    private videoService: VideoPlayerService, 
+    private timeSyncService: TimeSyncService, 
     ) { 
     
   }
@@ -63,13 +63,13 @@ export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
           const currentSession = JSON.parse(localStorage.getItem(sessionid)!);
           const sessionStart =  new Date(currentSession.startdatetime);
           const correctHour = currentSession.starttimezoneoffset ?
-            sessionStart.getHours()-this.videoService.secToHours(currentSession.starttimezoneoffset): //this.videoService.secToHours(currentSession.starttimezoneoffset) :
+            sessionStart.getHours()-this.timeSyncService.secToHours(currentSession.starttimezoneoffset): //this.videoService.secToHours(currentSession.starttimezoneoffset) :
             sessionStart.getHours()-2;
           sessionStart.setHours(correctHour);
           const caseStart = new Date(startTime);
           const caseEnd = new Date(endTime);
-          const mappedStartTime = this.videoService.msToTime(+caseStart - +sessionStart);
-          const mappedEndTime = this.videoService.msToTime(+caseEnd- +sessionStart );
+          const mappedStartTime = this.timeSyncService.msToTime(+caseStart - +sessionStart);
+          const mappedEndTime = this.timeSyncService.msToTime(+caseEnd- +sessionStart );
           
           bodyParams = bodyParams.append("name", sessionid);
           bodyParams = bodyParams.append("start_time", mappedStartTime);

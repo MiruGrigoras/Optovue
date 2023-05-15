@@ -6,6 +6,7 @@ import { ProcessModule } from './process/process.module';
 import { UserModule } from './user/user.module';
 import { SessionModule } from './session/session.module';
 import { QueueItemModule } from './queueItem/queueItem.module';
+import { StageModule } from './stage/stage.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { QueueItemModule } from './queueItem/queueItem.module';
     UserModule,
     SessionModule,
     QueueItemModule,
+    StageModule,
   ],
   controllers: [AppController],
   providers: [AppService],
