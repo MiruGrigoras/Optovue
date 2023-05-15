@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Process } from 'src/app/models/process';
 import { map } from 'rxjs';
@@ -33,5 +33,17 @@ export class ProcessesListComponent implements OnInit {
     this.router.navigate(
       ['/cases'],
       { queryParams: {processid: processid}});
+  }
+
+  runProcess(processName: string) {
+    var command = 'cd D:/Programe/Blue Prism Automate && AutomateC.exe /run "' + processName + '" /resource DESKTOP-R56NS81 /user admin admin12345';
+    const params = new HttpParams()
+      .set('command', command);
+
+    this.httpClient
+      .get("http://localhost:3000/process/run", { params })
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
 }
