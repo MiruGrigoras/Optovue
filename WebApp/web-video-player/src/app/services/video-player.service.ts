@@ -17,4 +17,8 @@ export class VideoPlayerService {
   
     return hoursSt + ":" + minutesSt + ":" + secondsSt;
   }
+
+  secToHours(starttimezoneoffset: number) {
+    return starttimezoneoffset/3600; //60 sec for every min in 60 min
+  }
 }

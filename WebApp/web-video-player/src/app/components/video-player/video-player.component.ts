@@ -60,14 +60,16 @@ export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
       else{
         //add post request towards session video with starting and finishing time 
         let bodyParams = new HttpParams();
-          const sessionStart =  new Date(JSON.parse(localStorage.getItem(sessionid)!).startdatetime);
-          sessionStart.setHours(sessionStart.getHours()-2)
+          const currentSession = JSON.parse(localStorage.getItem(sessionid)!);
+          const sessionStart =  new Date(currentSession.startdatetime);
+          const correctHour = currentSession.starttimezoneoffset ?
+            sessionStart.getHours()-this.videoService.secToHours(currentSession.starttimezoneoffset): //this.videoService.secToHours(currentSession.starttimezoneoffset) :
+            sessionStart.getHours()-2;
+          sessionStart.setHours(correctHour);
           const caseStart = new Date(startTime);
           const caseEnd = new Date(endTime);
           const mappedStartTime = this.videoService.msToTime(+caseStart - +sessionStart);
           const mappedEndTime = this.videoService.msToTime(+caseEnd- +sessionStart );
-
-          const item= localStorage.getItem(sessionid);
           
           bodyParams = bodyParams.append("name", sessionid);
           bodyParams = bodyParams.append("start_time", mappedStartTime);
