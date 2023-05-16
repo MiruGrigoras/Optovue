@@ -1,0 +1,18 @@
+<mat-drawer-container class="drawer-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side" position="end">
+        <app-tasks-drawer></app-tasks-drawer>
+    </mat-drawer>
+
+    <div class="outside-drawer-content">
+        <mat-grid-list cols="3" rowHeight="100%">
+            <mat-grid-tile [colspan]=2 >
+                <app-video-player></app-video-player>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <button type="button" mat-button (click)="drawer.toggle()">
+                    Toggle sidenav
+                </button>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </div>
+</mat-drawer-container>

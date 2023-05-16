@@ -6,26 +6,32 @@ import { HttpClientModule } from "@angular/common/http";
 import { AppComponent } from "./app.component";
 import { VideoPlayerComponent } from "./components/video-player/video-player.component";
 import { ProcessesListComponent } from './components/processes-list/processes-list.component';
-import { VideoPlayerService } from "./services/video-player.service";
+import { TimeSyncService } from "./services/time-sync.service";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 
 
 import { RouterModule, Routes } from "@angular/router";
 import { CasesListComponent } from './components/cases-list/cases-list.component';
+import { RecordingViewComponent } from './components/recording-view/recording-view.component';
+import { TasksDrawerComponent } from './components/tasks-drawer/tasks-drawer.component';
+import { StageItemComponent } from './components/stage-item/stage-item.component';
 
 const appRoute:Routes =[
   {path: '', redirectTo:'processes', pathMatch: 'full'},
   {path: 'processes', component: ProcessesListComponent},
-  {path: 'video', component: VideoPlayerComponent},
+  {path: 'video', component: RecordingViewComponent},
   {path: 'cases', component: CasesListComponent},
 ] 
 @NgModule({
-  declarations: [AppComponent, VideoPlayerComponent, ProcessesListComponent, CasesListComponent],
+  declarations: [AppComponent, VideoPlayerComponent, ProcessesListComponent, CasesListComponent, RecordingViewComponent, TasksDrawerComponent, StageItemComponent],
   imports: [
     BrowserModule, 
     AppRoutingModule, 
@@ -36,9 +42,12 @@ const appRoute:Routes =[
     MatTableModule,
     MatIconModule,
     MatButtonModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSidenavModule,
+    MatDividerModule,
+    MatListModule
   ],
-  providers: [VideoPlayerService],
+  providers: [TimeSyncService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,7 +1,7 @@
 import { HttpParams, HttpHeaders, HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, ElementRef, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { VideoPlayerService } from 'src/app/services/video-player.service';
+import { TimeSyncService } from 'src/app/services/time-sync.service';
 import videojs from 'video.js';
 import 'videojs-markers';
 @Component({
@@ -16,7 +16,7 @@ export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
   constructor(
     private httpClient: HttpClient, 
     private activatedRoute: ActivatedRoute,
-    private videoService: VideoPlayerService, 
+    private timeSyncService: TimeSyncService, 
     ) { 
     
   }
@@ -60,19 +60,20 @@ export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
       else{
         //add post request towards session video with starting and finishing time 
         let bodyParams = new HttpParams();
-          const sessionStart =  new Date(localStorage.getItem(sessionid)!);
+          const currentSession = JSON.parse(localStorage.getItem(sessionid)!);
+          const sessionStart =  new Date(currentSession.startdatetime);
+          const correctHour = currentSession.starttimezoneoffset ?
+            sessionStart.getHours()-this.timeSyncService.secToHours(currentSession.starttimezoneoffset): //this.videoService.secToHours(currentSession.starttimezoneoffset) :
+            sessionStart.getHours()-2;
+          sessionStart.setHours(correctHour);
+          const caseStart = new Date(startTime);
+          const caseEnd = new Date(endTime);
+          const mappedStartTime = this.timeSyncService.msToTime(+caseStart - +sessionStart);
+          const mappedEndTime = this.timeSyncService.msToTime(+caseEnd- +sessionStart );
           
-          const mappedStartTime = this.videoService.msToTime(+sessionStart - +new Date(startTime));
-          const mappedEndTime = this.videoService.msToTime(+sessionStart - +new Date(endTime));
-
-          const item= localStorage.getItem(sessionid);
-          console.log({sessionid, caseid, item, startTime, endTime});
-          console.log({mappedStartTime, mappedEndTime});
-          
-
           bodyParams = bodyParams.append("name", sessionid);
-          bodyParams = bodyParams.append("start_time", "00:00:01");
-          bodyParams = bodyParams.append("end_time", "00:01:20");
+          bodyParams = bodyParams.append("start_time", mappedStartTime);
+          bodyParams = bodyParams.append("end_time", mappedEndTime);
           this.httpClient
             .post("http://localhost:3000/video/crop",bodyParams,{ responseType: "blob"})
             .subscribe((res) => {
@@ -115,5 +116,18 @@ export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
     if (this.player) {
       this.player.dispose();
     }
+  }
+  
+  getButtonTop(): number{
+    const player = document.getElementById("video-player");
+    const heightPlayer = player?.clientHeight;
+    return heightPlayer? window.innerHeight/2 + heightPlayer/2 - 100 : 0;
+  }
+  
+  getButtonLeft(): number{
+    const player = document.getElementById("video-player");
+    const button = document.getElementById('overlay-button')
+    const widthPlayer = player?.clientWidth;
+    return widthPlayer && button? widthPlayer - button.clientWidth - 50 : 0;
   }
 }

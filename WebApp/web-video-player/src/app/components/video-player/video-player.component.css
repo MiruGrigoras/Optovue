@@ -8,12 +8,18 @@
     background-color: #696969;
     border: none;
     position: absolute;
-    top: 70%;
-    left: 80%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
+    z-index: 1; 
+    color:white;
     width: 200px; /* Set the width of the button to 100px */
     height: 50px; /* Set the height of the button to 50px */
-    color:white;
   }
-  
+
+ .video-player-dim {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: auto;
+    padding-bottom: 56.25%;
+  }

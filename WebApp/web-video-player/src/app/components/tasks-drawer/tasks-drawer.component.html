@@ -1,0 +1,9 @@
+
+<mat-list>
+    <div *ngFor="let stage of allStages">
+        <mat-list-item>
+            <app-stage-item [stageName]="stage.stagename"/>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+    </div>
+</mat-list>

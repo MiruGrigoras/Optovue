@@ -13,6 +13,9 @@ export class ProcessService {
   async findAll(): Promise<object[]> {
     const processes = await this.processesRepository.findAll<Process>({
       attributes: ['processid', 'name'],
+      where: {
+        ProcessType: 'P',
+      },
     });
     return processes;
   }
