@@ -8,7 +8,7 @@
         </tr>
         <tr *ngFor="let process of allProcesses" class="mat-mdc-row mdc-data-table__row cdk-row">
             <td class="center">
-                <button mat-icon-button [matMenuTriggerFor]="menu">
+                <button mat-icon-button (click)="setCurrentProcess(process.processid)" [matMenuTriggerFor]="menu">
                     <mat-icon>more_horiz</mat-icon>
                 </button>   
                 <mat-menu #menu="matMenu">
