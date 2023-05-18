@@ -24,3 +24,22 @@ button .max-size {
     width: 100%;
     height: 100%;
 }
+
+.running-icon {
+    color: green;
+    margin-right: 5px;
+}
+
+.not-started-icon {
+    color: red;
+    margin-right: 5px;
+}
+
+.icon-container {
+    display: flex;
+    align-items: center;
+}
+
+.icon-text {
+    vertical-align: middle;
+}

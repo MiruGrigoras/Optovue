@@ -12,8 +12,8 @@ import { Session } from 'src/app/models/session';
 })
 export class ProcessesListComponent implements OnInit {
   allProcesses: Process[] = [];
-  currentProcessId : string | undefined;
-  showCases:boolean = false;
+  runningStatus: Map<string, any> = new Map<string, any>();
+  showCasesStatus: Map<string, any> = new Map<string, any>();
   private timeoutId: any;
 
   constructor(private httpClient: HttpClient, private router: Router){
@@ -30,6 +30,8 @@ export class ProcessesListComponent implements OnInit {
     }))
     .subscribe((processes)=>{
       this.allProcesses = processes;
+      this.initialiseRunningStates();
+      this.initialiseShowCasesStates();
     })
   }
 
@@ -39,15 +41,37 @@ export class ProcessesListComponent implements OnInit {
       { queryParams: {processid: processid}});
   }
   
-  setCurrentProcess(processid: string)
-  {
-    this.currentProcessId = processid;
-    this.showCases = this.sendPostRequest(this.currentProcessId);//verify if the last session run has cases to show 
+  initialiseRunningStates() {
+    for (let i = 1; i < this.allProcesses.length; i++) {
+      this.runningStatus.set(this.allProcesses[i].processid, false);
+    }
+  }
+
+  initialiseShowCasesStates() {
+    for (let i = 1; i < this.allProcesses.length; i++) {
+      let processid = this.allProcesses[i].processid;
+      let showCases = this.sendPostRequest(processid);//verify in the db if the last session run has cases to show 
+      console.log("was initialized with", showCases);
+      this.showCasesStatus.set(processid, showCases);
+    }
+  }
+
+  isRunning(processid: string): boolean {
+    console.log("running state", this.runningStatus.get(processid));
+    if (this.runningStatus.get(processid) === true)
+      return true;
+    return false;
+  }
+  
+  hasCasesToDisplay(processid: string): boolean{
+    console.log("show state", this.runningStatus.get(processid));
+    if (this.showCasesStatus.get(processid) === true)
+      return true;
+    return false;
   }
 
   runProcess(processid:string, processName: string) {
-    //TODO: check that the process has started and on the right machine
-    var command = 'cd C:/Program Files/Blue Prism Limited/Blue Prism Automate && AutomateC.exe /run "' + processName + '" /resource DESKTOP-R56NS81 /user admin admin12345';
+    var command = 'cd D:/Programe/Blue Prism Automate && AutomateC.exe /run "' + processName + '" /resource DESKTOP-R56NS81 /user admin admin12345';
     const params = new HttpParams()
       .set('command', command);
 
@@ -57,8 +81,9 @@ export class ProcessesListComponent implements OnInit {
         console.log(res);
       });
       
-      this.showCases  = false;
-      //this.startProcessStatusRequestInterval(processid);
+      this.showCasesStatus.set(processid, false);
+      this.runningStatus.set(processid, true);
+      this.startProcessStatusRequestInterval(processid);
   }
 
   startProcessStatusRequestInterval(processid: string): void {
@@ -68,7 +93,7 @@ export class ProcessesListComponent implements OnInit {
     }, 5000); // Interval in milliseconds (e.g., 5000ms = 5 seconds)
   }
 
-  sendPostRequest(processid: string): any {
+  sendPostRequest(processid: string) : void {
     let bodyParams = new HttpParams();
     bodyParams = bodyParams.append("processid", processid);
     this.httpClient
@@ -80,14 +105,14 @@ export class ProcessesListComponent implements OnInit {
 
         if(!result.enddatetime)
           {  
-            this.showCases  = false;
-            return false;
+            this.showCasesStatus.set(processid, false);
+            this.runningStatus.set(processid, true);
           }
         else
           { 
-            this.showCases  = true; 
+            this.showCasesStatus.set(processid, true);
+            this.runningStatus.set(processid, false);
             this.stopProcessStatusRequestInterval();
-            return true;
           }
       })
   }

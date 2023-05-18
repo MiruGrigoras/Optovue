@@ -8,7 +8,7 @@
         </tr>
         <tr *ngFor="let process of allProcesses" class="mat-mdc-row mdc-data-table__row cdk-row">
             <td class="center">
-                <button mat-icon-button (click)="setCurrentProcess(process.processid)" [matMenuTriggerFor]="menu">
+                <button mat-icon-button [matMenuTriggerFor]="menu">
                     <mat-icon>more_horiz</mat-icon>
                 </button>   
                 <mat-menu #menu="matMenu">
@@ -16,13 +16,27 @@
                         <mat-icon>play_arrow</mat-icon>
                         Run
                     </button>
-                    <button mat-menu-item [disabled]="!showCases" (click)="navigateToCases(process.processid)">
+                    <button mat-menu-item [disabled]="!hasCasesToDisplay(process.processid)" (click)="navigateToCases(process.processid)">
                         <mat-icon>visibility</mat-icon>
                         Show cases
                     </button>
                   </mat-menu>
             </td>   
             <td>{{process.name}}</td>
+            <td>
+                <div *ngIf="isRunning(process.processid)">
+                    <div class="icon-container">
+                        <mat-icon class="running-icon">check_circle_outline</mat-icon>
+                        <span class="icon-text">Running</span>
+                    </div>
+                  </div>
+                  <div *ngIf="!isRunning(process.processid)">
+                    <div class="icon-container">
+                        <mat-icon class="not-started-icon">highlight_off</mat-icon>
+                        <span class="icon-text">Not started</span>
+                    </div>
+                  </div>
+            </td>
         </tr>
     </table>
 </div>
