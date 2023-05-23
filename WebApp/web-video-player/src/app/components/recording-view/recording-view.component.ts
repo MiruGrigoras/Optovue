@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-recording-view',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./recording-view.component.css']
 })
 export class RecordingViewComponent {
-  showFiller = false;
+  @ViewChild('drawer') drawer!: MatDrawer;
+  showStages = false;
+  toggleDrawer(){
+    this.drawer.toggle();
+    this.showStages = !this.showStages
+  }
 }

@@ -7,3 +7,17 @@
     width: 100%;
     height: 100%;
 } 
+
+.side-menu-button {
+  -moz-transform:rotate(-90deg);
+  -ms-transform:rotate(-90deg);
+  -o-transform:rotate(-90deg);
+  -webkit-transform:rotate(-90deg);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+::ng-deep .button-container .mat-grid-tile-content {
+  background: #DDE4FB;
+  padding: 0;
+}

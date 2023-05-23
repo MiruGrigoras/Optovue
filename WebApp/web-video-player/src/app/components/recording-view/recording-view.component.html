@@ -4,15 +4,18 @@
     </mat-drawer>
 
     <div class="outside-drawer-content">
-        <mat-grid-list cols="3" rowHeight="100%">
-            <mat-grid-tile [colspan]=2 >
+        <mat-grid-list cols="50" rowHeight="100%">
+            <mat-grid-tile [colspan]=49 >
                 <app-video-player></app-video-player>
             </mat-grid-tile>
-            <mat-grid-tile>
-                <button type="button" mat-button (click)="drawer.toggle()">
-                    Toggle sidenav
-                </button>
-            </mat-grid-tile>
+            <div class="button-container">
+                <mat-grid-tile position="end" mat-button (click)="toggleDrawer()">
+                    <div class="side-menu-button">
+                        <mat-icon>{{this.showStages ? "expand_more" : "expand_less"}}</mat-icon>
+                        {{this.showStages ? "Hide stages" : "Show stages"}}
+                    </div>
+                </mat-grid-tile>
+            </div>
         </mat-grid-list>
     </div>
 </mat-drawer-container>
