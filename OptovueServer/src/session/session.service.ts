@@ -21,6 +21,7 @@ export class SessionService {
         'sessionnumber',
         'startdatetime',
         'starttimezoneoffset',
+        'enddatetime',
       ],
       where: {
         processid: processIdParam,
@@ -30,13 +31,14 @@ export class SessionService {
     return sessions;
   }
 
-  async getSessionStartTime(processIdParam: string): Promise<any> {
+  async getSessionTime(processIdParam: string): Promise<any> {
     const sessions = await this.findSessionsByProcessId(processIdParam);
     return {
       sessionid: sessions[0].sessionid,
       sessionnumber: sessions[0].sessionnumber,
       startdatetime: sessions[0].startdatetime,
       starttimezoneoffset: sessions[0].starttimezoneoffset,
+      enddatetime: sessions[0].enddatetime,
     };
   }
 }

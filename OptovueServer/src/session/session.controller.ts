@@ -11,8 +11,8 @@ export class SessionController {
     return sessions;
   }
 
-  @Post('sessionStartTime')
-  async getSessionStartTime(@Body('processid') processId: string) {
-    return await this.sessionService.getSessionStartTime(processId);
+  @Post('time')
+  async getSessionTime(@Body('processid') processId: string) {
+    return await this.sessionService.getSessionTime(processId);
   }
 }
