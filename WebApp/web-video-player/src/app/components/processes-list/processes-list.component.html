@@ -1,42 +1,45 @@
 
 <div class="container">
-    <table class="mat-mdc-table mdc-data-table__table cdk-table mat-elevation-z3">
-        <tr class="mat-mdc-header-row mdc-data-table__header-row cdk-header-row">
-            <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-process_id mat-column-process_id"></th>
-            <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-process_id mat-column-process_id">Process Name</th>
-            
-        </tr>
-        <tr *ngFor="let process of allProcesses" class="mat-mdc-row mdc-data-table__row cdk-row">
-            <td class="center">
-                <button mat-icon-button [matMenuTriggerFor]="menu">
-                    <mat-icon>more_horiz</mat-icon>
-                </button>   
-                <mat-menu #menu="matMenu">
-                    <button mat-menu-item (click)="runProcess(process.processid, process.name)">
-                        <mat-icon>play_arrow</mat-icon>
-                        Run
+    <img src="../assets/cockpit_header.png" width="100%" id="header"/>
+    <div class="table-container">
+        <table class="mat-mdc-table mdc-data-table__table cdk-table mat-elevation-z3">
+            <tr class="mat-mdc-header-row mdc-data-table__header-row cdk-header-row">
+                <th class="center mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-process_id mat-column-process_id">Action</th>
+                <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-process_id mat-column-process_id">Name</th>
+                <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-process_id mat-column-process_id">Status</th>
+            </tr>
+            <tr *ngFor="let process of allProcesses" class="mat-mdc-row mdc-data-table__row cdk-row">
+                <td class="center">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_horiz</mat-icon>
                     </button>
-                    <button mat-menu-item [disabled]="!hasCasesToDisplay(process.processid)" (click)="navigateToCases(process.processid)">
-                        <mat-icon>visibility</mat-icon>
-                        Show cases
-                    </button>
-                  </mat-menu>
-            </td>   
-            <td>{{process.name}}</td>
-            <td>
-                <div *ngIf="isRunning(process.processid)">
-                    <div class="icon-container">
-                        <mat-icon class="running-icon">check_circle_outline</mat-icon>
-                        <span class="icon-text">Running</span>
-                    </div>
-                  </div>
-                  <div *ngIf="!isRunning(process.processid)">
-                    <div class="icon-container">
-                        <mat-icon class="not-started-icon">highlight_off</mat-icon>
-                        <span class="icon-text">Not started</span>
-                    </div>
-                  </div>
-            </td>
-        </tr>
-    </table>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="runProcess(process.processid, process.name)">
+                            <mat-icon>play_arrow</mat-icon>
+                            Run
+                        </button>
+                        <button mat-menu-item [disabled]="!hasCasesToDisplay(process.processid)" (click)="navigateToCases(process.processid)">
+                            <mat-icon>visibility</mat-icon>
+                            Show cases
+                        </button>
+                      </mat-menu>
+                </td>
+                <td>{{process.name}}</td>
+                <td>
+                    <div *ngIf="isRunning(process.processid)">
+                        <div class="icon-container">
+                            <mat-icon class="running-icon">check_circle_outline</mat-icon>
+                            <span class="icon-text">Running</span>
+                        </div>
+                      </div>
+                      <div *ngIf="!isRunning(process.processid)">
+                        <div class="icon-container">
+                            <mat-icon class="not-started-icon">highlight_off</mat-icon>
+                            <span class="icon-text">Not started</span>
+                        </div>
+                      </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>

@@ -8,6 +8,8 @@ td {
 }
 th {
     border-bottom: 2px black;
+    padding: 0% 2%;
+    text-align: left;
 }
 tc {
     border: 0;
@@ -17,8 +19,13 @@ tc {
     text-align: center;
 }
 
-.container{
+.table-container{
     padding: 2% 2%;
+}
+.container{
+    position: relative;
+    left: 87px;
+    width: calc(100% - 87px);
 }
 button .max-size {
     width: 100%;
