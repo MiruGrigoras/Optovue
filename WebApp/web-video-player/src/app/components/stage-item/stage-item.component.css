@@ -1,0 +1,18 @@
+.main-text{
+    display: flex;
+    align-items: center;
+    font-size: small;
+    font-weight: bold;
+}
+
+.material-symbols-outlined {
+    padding-right: 5px;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48;
+}
+.sec-text{
+    font-size: x-small;
+}

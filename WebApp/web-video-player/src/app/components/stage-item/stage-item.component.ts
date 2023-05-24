@@ -7,4 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class StageItemComponent {
   @Input() stageName = '';
+  @Input() stageIndex = -1;
+  @Input() startTime = '';
 }

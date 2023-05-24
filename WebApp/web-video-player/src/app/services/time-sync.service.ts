@@ -21,4 +21,14 @@ export class TimeSyncService {
   secToHours(starttimezoneoffset: number) {
     return starttimezoneoffset/3600; //60 sec for every min in 60 min
   }
+
+  normalizeHour(sessionId: string, initialDate: Date): Date{
+    const currentSession = JSON.parse(localStorage.getItem(sessionId)!);
+    const correctHour = currentSession.starttimezoneoffset ?
+      initialDate.getHours()-this.secToHours(currentSession.starttimezoneoffset):
+      initialDate.getHours();
+    initialDate.setHours(correctHour);
+    return initialDate;
+
+  }
 }

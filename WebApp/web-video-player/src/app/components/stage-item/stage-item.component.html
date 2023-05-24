@@ -1,1 +1,10 @@
-{{stageName}}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<div class="main-text">
+    <mat-icon class="material-symbols-outlined">live_tv</mat-icon>
+    {{stageIndex+1 < 10 ? "0"+(stageIndex+1) : (stageIndex+1)}} - {{stageName}}
+</div>
+<div class="sec-text">
+    ({{startTime}})
+</div>
+

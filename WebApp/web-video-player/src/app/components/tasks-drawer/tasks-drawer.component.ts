@@ -12,6 +12,8 @@ import { TimeSyncService } from 'src/app/services/time-sync.service';
 })
 export class TasksDrawerComponent {
   allStages: Stage[] = [];
+  sessionStartTime: string = '';
+  sessionId:string = ''; 
    
   constructor(
     private httpClient: HttpClient, 
@@ -21,15 +23,16 @@ export class TasksDrawerComponent {
 
   ngOnInit():void{
     this.activatedRoute.queryParams.subscribe(params => {
-      const sessionId = params['sessionid'];
-      const startTime = params['startTime'];
+      const caseId = params['caseid'];
+      this.sessionId = params['sessionid'];
+      this.sessionStartTime = params['startTime'];
       const endTime = params['endTime'];
-      const sessionObject = JSON.parse(localStorage.getItem(sessionId)!);
+      const sessionObject = JSON.parse(localStorage.getItem(this.sessionId)!);
       const sessionNo = sessionObject.sessionnumber;
       const offset =  this.timeSyncService.secToHours(sessionObject.starttimezoneoffset);
       let bodyParams = new HttpParams();
       bodyParams = bodyParams.append("sessionnumber", sessionNo);
-      bodyParams = bodyParams.append("startTime", startTime);
+      bodyParams = bodyParams.append("startTime", this.sessionStartTime);
       bodyParams = bodyParams.append("endTime", endTime);
       bodyParams = bodyParams.append("hoursOffset", offset);
       this.httpClient
@@ -37,13 +40,20 @@ export class TasksDrawerComponent {
       .pipe(map((res)=>{
         const stages = [];
         for(const key in res){
-          stages.push(res[key])
+          stages.push({...res[key], stageIndex: +key});
         }
         return stages;
       }))
       .subscribe((stages) =>{
         this.allStages = stages;
+        localStorage.setItem(caseId, JSON.stringify(this.allStages));
       })
     })
+  }
+
+  getStageTime(stage:Stage): string{
+    const sessionStartDate = new Date(this.sessionStartTime);// this.timeSyncService.normalizeHour(this.sessionId, new Date(this.sessionStartTime));
+    const stageStartDate = this.timeSyncService.normalizeHour(this.sessionId, new Date(stage.startdatetime));
+    return this.timeSyncService.msToTime(+stageStartDate - +sessionStartDate);
   }
 }
