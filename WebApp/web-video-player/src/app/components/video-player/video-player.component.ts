@@ -122,7 +122,7 @@ export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
     const player = document.getElementById("video-player");
     const heightPlayer = player?.clientHeight;
     const header = document.getElementById('header');
-    return heightPlayer? (window.innerHeight - header!.clientHeight)/2 + heightPlayer/2 - 100 : 0;
+    return heightPlayer? (window.innerHeight - header!.clientHeight)/2 + heightPlayer/2 - 150 : 0;
   }
   
   getButtonLeft(): number{

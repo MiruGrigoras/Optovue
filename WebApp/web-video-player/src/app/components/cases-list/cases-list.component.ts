@@ -54,7 +54,7 @@ export class CasesListComponent {
           .pipe(map((res)=>{
             const cases = [];
             for(const key in res){
-              cases.push(res[key])
+              cases.push({...res[key], localStorageIndex: +key})
             }
             return cases;
           }))
@@ -65,14 +65,13 @@ export class CasesListComponent {
                 cases[i].started = cases[i-1].finished;
             }
             this.allCases = cases;
+            localStorage.setItem(processidParam, JSON.stringify(this.allCases));
           })
       }
       
     }); 
   } 
   navigateToVideo(sessionid: string, caseid: string, loadingTime: Date, finishedTime: Date){
-    console.log(caseid);
-    
       this.router.navigate(
         ['/video'],
         { queryParams: {

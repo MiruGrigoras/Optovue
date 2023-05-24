@@ -19,7 +19,38 @@
   display: flex;
   align-items: center;
 }
+
 ::ng-deep .button-container .mat-grid-tile-content {
   background: #DDE4FB;
   padding: 0;
 }
+
+.case-controls{
+  display: flex;
+  align-items: center;
+  width: 30%;
+  justify-content: space-evenly;
+  color: #4d5372;
+}
+
+::ng-deep .controls-container .mat-grid-tile-content {
+  background: #fff;
+  padding: 0px;
+}
+
+::ng-deep .case-controls .mat-icon{
+  color: #1e49e2;
+}
+
+
+::ng-deep .case-controls .mat-mdc-fab{
+  background-color: #DDE4FB;
+}
+
+::ng-deep .case-controls :disabled.mat-mdc-fab {
+  background-color: #f7f8fa;
+}
+::ng-deep .case-controls :disabled.mat-mdc-fab .mat-icon{
+  color: #b1b4c2;
+}
+
