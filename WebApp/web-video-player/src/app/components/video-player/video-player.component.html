@@ -10,7 +10,7 @@
         </video>
     </div>
     <button 
-        *ngIf="areStagesPresent"
+        *ngIf="areStagesPresent && isException"
         (click)="skipToException()" 
         mat-stroked-button 
         id="overlay-button"

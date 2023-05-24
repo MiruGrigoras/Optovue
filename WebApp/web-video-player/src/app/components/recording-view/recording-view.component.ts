@@ -22,6 +22,7 @@ export class RecordingViewComponent implements AfterViewInit{
   allStages: Stage[] = [];
   caseStartTime: string = '';
   sessionId:string = ''; 
+  caseId:string = ''; 
 
   
   constructor(
@@ -33,13 +34,13 @@ export class RecordingViewComponent implements AfterViewInit{
     
   ngOnInit(): void{
     this.activatedRoute.queryParams.subscribe(params => {
-      const caseId = params['caseid'];
+      this.caseId = params['caseid'];
       this.sessionId = params['sessionid'];
       const sessionObject = JSON.parse(localStorage.getItem(this.sessionId)!);
       const processid = sessionObject.processid;
       this.casesArray = JSON.parse(localStorage.getItem(processid)!);
       for(let i=0; i< this.casesArray.length; i++){
-        if(this.casesArray[i].id === caseId){
+        if(this.casesArray[i].id === this.caseId){
           this.currentCaseIndex = this.casesArray[i].localStorageIndex;
           this.currentCaseKey = this.casesArray[i].keyvalue;
           break;
@@ -73,7 +74,7 @@ export class RecordingViewComponent implements AfterViewInit{
         this.allStages.forEach(stage => {
           stage.relativeTime = this.getStageTime(stage)
         });
-        localStorage.setItem(caseId, JSON.stringify(this.allStages));
+        localStorage.setItem(this.caseId, JSON.stringify(this.allStages));
       })
 
 
@@ -136,6 +137,15 @@ export class RecordingViewComponent implements AfterViewInit{
 
   areStagesPresent(): boolean{
     return this.allStages.length > 0;
+  }
+  
+  isException(): boolean{
+    for(let i=0; i< this.casesArray.length; i++){
+      if(this.casesArray[i].id === this.caseId){
+        return this.casesArray[i].exception != undefined;
+      }
+    }
+    return false;
   }
  
 }

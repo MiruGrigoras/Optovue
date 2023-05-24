@@ -5,7 +5,7 @@ import { Injectable } from "@angular/core";
 export class TimeSyncService {
   constructor(private httpClient: HttpClient) {}
 
-  msToTime(duration: number) {
+  msToTime(duration: number): string {
     let milliseconds = Math.floor((duration % 1000) / 100),
       seconds = Math.floor((duration / 1000) % 60),
       minutes = Math.floor((duration / (1000 * 60)) % 60),

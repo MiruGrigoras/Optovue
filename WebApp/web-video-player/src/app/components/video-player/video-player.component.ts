@@ -12,9 +12,12 @@ import 'videojs-markers';
 })
 export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
   @Input() areStagesPresent: boolean = false;
+  @Input() isException: boolean = false;
   @Input() stages: Stage[] = []
   player: any;
   url: string = "";
+  mappedStartTime: string = "";
+  mappedEndTime: string = "";
 
   constructor(
     private httpClient: HttpClient, 
@@ -71,12 +74,12 @@ export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
           sessionStart.setHours(correctHour);
           const caseStart = new Date(startTime);
           const caseEnd = new Date(endTime);
-          const mappedStartTime = this.timeSyncService.msToTime(+caseStart - +sessionStart);
-          const mappedEndTime = this.timeSyncService.msToTime(+caseEnd- +sessionStart );
+          this.mappedStartTime = this.timeSyncService.msToTime(+caseStart - +sessionStart);
+          this.mappedEndTime = this.timeSyncService.msToTime(+caseEnd- +sessionStart );
           
           bodyParams = bodyParams.append("name", sessionid);
-          bodyParams = bodyParams.append("start_time", mappedStartTime);
-          bodyParams = bodyParams.append("end_time", mappedEndTime);
+          bodyParams = bodyParams.append("start_time", this.mappedStartTime);
+          bodyParams = bodyParams.append("end_time", this.mappedEndTime);
           this.httpClient
             .post("http://localhost:3000/video/crop",bodyParams,{ responseType: "blob"})
             .subscribe((res) => {
@@ -106,8 +109,22 @@ export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
   }
 
   skipToException(): void{ 
-      //TODO: take time of exception from local storage
-      this.player.currentTime(5);
+      const startingSec = this.timeSyncService.hoursToSec(this.mappedStartTime);
+      const endSec = this.timeSyncService.hoursToSec(this.mappedEndTime);
+      const videoLength = endSec - startingSec;
+      console.log("videoLength: ", videoLength,  this.mappedStartTime, this.mappedEndTime);
+      
+      if(videoLength > 5){
+        this.player.currentTime(videoLength - 5);  
+      }
+      else{
+        if(videoLength > 1){
+          this.player.currentTime(videoLength - 1);  
+        }
+        else{
+          this.player.currentTime(videoLength);
+        }
+      }
   }
 
   ngAfterViewInit(): void {
