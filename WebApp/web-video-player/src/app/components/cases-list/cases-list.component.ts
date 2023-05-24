@@ -71,6 +71,7 @@ export class CasesListComponent {
       
     }); 
   } 
+
   navigateToVideo(sessionid: string, caseid: string, loadingTime: Date, finishedTime: Date){
       this.router.navigate(
         ['/video'],
@@ -80,5 +81,5 @@ export class CasesListComponent {
           startTime: loadingTime,
           endTime: finishedTime
         }});
-    }
+  }
 }

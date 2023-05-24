@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
 <div class="container">
     <img src="../assets/page_header.png" width="100%" id="header"/>
     <div class="table-container">
@@ -19,7 +21,7 @@
                 <td>{{case.id}}</td>
                 <td class="center">
                     <button mat-icon-button (click)="navigateToVideo(case.sessionid, case.id, case.started, case.finished)">
-                        <mat-icon>play_arrow</mat-icon>
+                        <mat-icon [ngClass]="case.exception ? 'red' : 'green'" class="material-symbols-outlined">play_circle</mat-icon>
                     </button>   
                 </td>
                 <td>{{case.started}}</td>

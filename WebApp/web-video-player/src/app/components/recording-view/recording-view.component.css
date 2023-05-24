@@ -50,6 +50,7 @@
 ::ng-deep .case-controls :disabled.mat-mdc-fab {
   background-color: #f7f8fa;
 }
+
 ::ng-deep .case-controls :disabled.mat-mdc-fab .mat-icon{
   color: #b1b4c2;
 }
