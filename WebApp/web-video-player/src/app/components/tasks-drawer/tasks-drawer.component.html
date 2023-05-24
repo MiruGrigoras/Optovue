@@ -2,7 +2,7 @@
 <mat-list>
     <div *ngFor="let stage of allStages">
         <mat-list-item>
-            <app-stage-item [stageName]="stage.stagename" [stageIndex]="stage.stageIndex" [startTime]="getStageTime(stage)"/>
+            <app-stage-item [stageName]="stage.stagename" [stageIndex]="stage.stageIndex" [startTime]="stage.relativeTime"/>
         </mat-list-item>
         <mat-divider></mat-divider>
     </div>

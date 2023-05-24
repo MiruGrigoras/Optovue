@@ -5,7 +5,7 @@
         
         <mat-drawer-container class="drawer-container" autosize id="container">
             <mat-drawer #drawer class="example-sidenav" mode="side" position="end">
-                <app-tasks-drawer></app-tasks-drawer>
+                <app-tasks-drawer [allStages]="allStages"></app-tasks-drawer>
             </mat-drawer>
             <mat-grid-list cols="50" rowHeight="32px">
                 <div class="controls-container">
@@ -21,7 +21,7 @@
                         </div>
                     </mat-grid-tile>
                 </div>
-                <div class="button-container">
+                <div class="button-container" *ngIf="areStagesPresent()">
                     <mat-grid-tile position="end" mat-button (click)="toggleDrawer()" colspan="1" rowspan="23">
                         <div class="side-menu-button">
                             <mat-icon>{{this.showStages ? "expand_more" : "expand_less"}}</mat-icon>
@@ -30,7 +30,7 @@
                     </mat-grid-tile>
                 </div>
                 <mat-grid-tile colspan="49" rowspan="21">
-                    <app-video-player></app-video-player>
+                    <app-video-player [areStagesPresent]="areStagesPresent()" [stages]="allStages"></app-video-player>
                 </mat-grid-tile>
                 
             </mat-grid-list>

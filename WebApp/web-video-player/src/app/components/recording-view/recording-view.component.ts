@@ -1,7 +1,11 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ActivatedRoute, Router } from '@angular/router';
+import { map } from 'rxjs';
 import { Case } from 'src/app/models/case';
+import { Stage } from 'src/app/models/stage';
+import { TimeSyncService } from 'src/app/services/time-sync.service';
 
 @Component({
   selector: 'app-recording-view',
@@ -14,25 +18,67 @@ export class RecordingViewComponent implements AfterViewInit{
   currentCaseKey = '';
   currentCaseIndex = -1;
   casesArray: Case[] = [];
+  
+  allStages: Stage[] = [];
+  caseStartTime: string = '';
+  sessionId:string = ''; 
 
   
-  constructor(private activatedRoute: ActivatedRoute, private router: Router){}
+  constructor(
+    private httpClient: HttpClient, 
+    private activatedRoute: ActivatedRoute, 
+    private router: Router,
+    private timeSyncService: TimeSyncService, 
+  ){}
     
   ngOnInit(): void{
     this.activatedRoute.queryParams.subscribe(params => {
-      const currentCaseId = params['caseid'];
-      const sessionId = params['sessionid'];
-      const sessionObject = JSON.parse(localStorage.getItem(sessionId)!);
+      const caseId = params['caseid'];
+      this.sessionId = params['sessionid'];
+      const sessionObject = JSON.parse(localStorage.getItem(this.sessionId)!);
       const processid = sessionObject.processid;
       this.casesArray = JSON.parse(localStorage.getItem(processid)!);
       for(let i=0; i< this.casesArray.length; i++){
-        if(this.casesArray[i].id === currentCaseId){
+        if(this.casesArray[i].id === caseId){
           this.currentCaseIndex = this.casesArray[i].localStorageIndex;
           this.currentCaseKey = this.casesArray[i].keyvalue;
           break;
 
         }
       }
+
+      //Request for stages
+
+      this.caseStartTime = params['startTime'];
+      const endTime = params['endTime'];
+      
+      const sessionNo = sessionObject.sessionnumber;
+      const offset =  this.timeSyncService.secToHours(sessionObject.starttimezoneoffset);
+      let bodyParams = new HttpParams();
+      bodyParams = bodyParams.append("sessionnumber", sessionNo);
+      bodyParams = bodyParams.append("startTime", this.caseStartTime);
+      bodyParams = bodyParams.append("endTime", endTime);
+      bodyParams = bodyParams.append("hoursOffset", offset);
+      this.httpClient
+      .post<{[key: string]:Stage}>('http://localhost:3000/stage', bodyParams)
+      .pipe(map((res)=>{
+        const stages = [];
+        for(const key in res){
+          stages.push({...res[key], stageIndex: +key});
+        }
+        return stages;
+      }))
+      .subscribe((stages) =>{
+        this.allStages = stages;
+        this.allStages.forEach(stage => {
+          stage.relativeTime = this.getStageTime(stage)
+        });
+        localStorage.setItem(caseId, JSON.stringify(this.allStages));
+      })
+
+
+
+
     })
   }
 
@@ -63,7 +109,7 @@ export class RecordingViewComponent implements AfterViewInit{
       { queryParams: {
         caseid: nextCase.id,
         sessionid: nextCase.sessionid,
-        startTime: nextCase.loaded,
+        startTime: nextCase.started,
         endTime: nextCase.finished,
       }}
     )
@@ -76,10 +122,20 @@ export class RecordingViewComponent implements AfterViewInit{
       { queryParams: {
         caseid: nextCase.id,
         sessionid: nextCase.sessionid,
-        startTime: nextCase.loaded,
+        startTime: nextCase.started,
         endTime: nextCase.finished,
       }}
     )
+  }
+  
+  getStageTime(stage:Stage): string{
+    const sessionStartDate = new Date(this.caseStartTime);// this.timeSyncService.normalizeHour(this.sessionId, new Date(this.sessionStartTime));
+    const stageStartDate = this.timeSyncService.normalizeHour(this.sessionId, new Date(stage.startdatetime));
+    return this.timeSyncService.msToTime(+stageStartDate - +sessionStartDate);
+  }
+
+  areStagesPresent(): boolean{
+    return this.allStages.length > 0;
   }
  
 }

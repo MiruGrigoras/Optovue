@@ -1,6 +1,7 @@
 import { HttpParams, HttpHeaders, HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, ElementRef, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Stage } from 'src/app/models/stage';
 import { TimeSyncService } from 'src/app/services/time-sync.service';
 import videojs from 'video.js';
 import 'videojs-markers';
@@ -10,6 +11,8 @@ import 'videojs-markers';
   styleUrls: ['./video-player.component.css']
 })
 export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
+  @Input() areStagesPresent: boolean = false;
+  @Input() stages: Stage[] = []
   player: any;
   url: string = "";
 
@@ -82,19 +85,21 @@ export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
                 src: this.url,
                 type:"video/mp4",
               });
-              this.player.markers({
-                markerStyle: {
-                  'width':'3px',
-                  'background-color': 'white',
-                  'border-radius': '50%',
-                },
-                markers:[
-                  {time: 3, text: "Task 1"},
-                  {time: 5, text: "Task 2"},
-                  {time: 12, text: "Task 3"},
-                  {time: 17, text: "Task 4"},
-                ]
-              });
+              if(this.areStagesPresent){
+                const markers: { time: any; text: string; }[] = [];
+                this.stages.forEach(stage => {
+                  const timeInSec = this.timeSyncService.hoursToSec(stage.relativeTime);
+                  markers.push({time: timeInSec, text: "Stage " + (+stage.stageIndex+1)})
+                });
+                this.player.markers({
+                  markerStyle: {
+                    'width':'3px',
+                    'background-color': 'white',
+                    'border-radius': '50%',
+                  },
+                  markers: markers,
+                });
+              }
         });
       }
     })

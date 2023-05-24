@@ -29,6 +29,10 @@ export class TimeSyncService {
       initialDate.getHours();
     initialDate.setHours(correctHour);
     return initialDate;
+  }
 
+  hoursToSec(timeInHours:string): number{ //timeInHours would look like this: "01:02:03"
+    const timeParts = timeInHours.split(':');
+    return +timeParts[0]*3600 + (+timeParts[1]*60) + (+timeParts[2]);
   }
 }
