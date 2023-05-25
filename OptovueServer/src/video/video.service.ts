@@ -1,9 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Response } from 'express';
-
-const VIDEO_PATH = 'D:\\Projects\\OptovueProject\\OptovueRecordings\\';
-// currentFile.substring(0, currentFile.indexOf('\\dist\\main.js')) +
-// '\\src\\video\\actual-videos\\'; 
+import { VIDEO_PATH } from 'src/constants';
 
 @Injectable()
 export class VideoService {

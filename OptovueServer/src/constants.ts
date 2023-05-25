@@ -5,3 +5,5 @@ export const SESSION_REPOSITORY = 'SESSION_REPOSITORY';
 export const QUEUE_REPOSITORY = 'QUEUE_REPOSITORY';
 export const STAGE_REPOSITORY = 'STAGE_REPOSITORY';
 export const DATA_SOURCE = 'DATA_SOURCE';
+
+export const VIDEO_PATH = 'D:\\Projects\\OptovueProject\\OptovueRecordings\\';
