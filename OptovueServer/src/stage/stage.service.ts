@@ -9,7 +9,7 @@ export class StageService {
     private stageRepository: typeof Stage,
   ) {}
 
-  async getStagesInCurrentSession(
+  async getStagesInSessionWithinCaseTimestamps(
     sessionnumber: number,
     startTime: string,
     endTime: string,
@@ -35,5 +35,14 @@ export class StageService {
         stage.startdatetime < timezoneEndTime,
     );
     return filteredStages;
+  }
+
+  async getAllStageInSession(sessionnumber: number): Promise<Stage[]> {
+    return await this.stageRepository.findAll<Stage>({
+      attributes: ['logid'],
+      where: {
+        sessionnumber: sessionnumber,
+      },
+    });
   }
 }

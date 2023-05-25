@@ -12,7 +12,7 @@ export class StageController {
     @Body('endTime') endTime: string,
     @Body('hoursOffset') hoursOffset: number,
   ) {
-    return await this.stageService.getStagesInCurrentSession(
+    return await this.stageService.getStagesInSessionWithinCaseTimestamps(
       sessionnumber,
       startTime,
       endTime,

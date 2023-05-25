@@ -1,0 +1,23 @@
+.dialog-title{
+    font-weight: 600;
+}
+
+.dialog-content{
+    text-align: justify;
+}
+
+.dialog-actions{
+    display: flex;
+    justify-content: space-around
+}
+
+::ng-deep .mat-mdc-button:not(:disabled).dialog-cancel {
+    background-color:#1e49e2;
+    color: white;
+    font-weight: 600;
+}
+
+::ng-deep .mat-mdc-button:not(:disabled).dialog-continue {
+    background-color:#ffe3e7;
+    font-weight: 600;
+}

@@ -12,8 +12,13 @@ export class ProcessController {
   }
 
   @Get('/run')
-  async executeCommand( @Query('command') command: string) {
+  async executeCommand(@Query('command') command: string) {
     const result = await this.processService.runProcess(command);
     return result;
   }
- }
+
+  @Get('/hasPreviousLogs')
+  async checkIfHasPreviousLogs(@Query('processid') processid: string) {
+    return await this.processService.checkIfHasPreviousLogs(processid);
+  }
+}
