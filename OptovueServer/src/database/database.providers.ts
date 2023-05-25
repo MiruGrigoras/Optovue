@@ -2,7 +2,6 @@ import { Sequelize as Seq } from 'sequelize-typescript';
 import { SEQUELIZE } from 'src/constants';
 import Sequelize from 'sequelize';
 import { Process } from 'src/process/process.entity';
-import { User } from 'src/user/user.entity';
 import { Session } from 'src/session/session.entity';
 import { QueueItem } from 'src/queueItem/queueItem.entity';
 import { Stage } from 'src/stage/stage.entity';
@@ -24,7 +23,7 @@ export const databaseProviders = [
         database: 'BluePrism',
         dialect: 'mssql',
       });
-      sequelize.addModels([Process, User, Session, QueueItem, Stage]);
+      sequelize.addModels([Process, Session, QueueItem, Stage]);
       await sequelize.sync();
       return sequelize;
     },

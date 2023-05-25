@@ -40,7 +40,7 @@ export class CasesListComponent {
         let bodyParams = new HttpParams();
         bodyParams = bodyParams.append("processid", processidParam);
         this.httpClient
-          .post('http://localhost:3000/session/time', bodyParams)
+          .post('http://localhost:3000/session/mostRecent', bodyParams)
           .subscribe((res) => {
             const result: Session = res as Session;
             localStorage.setItem(result.sessionid, JSON.stringify(result));

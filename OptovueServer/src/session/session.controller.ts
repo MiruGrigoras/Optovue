@@ -11,8 +11,8 @@ export class SessionController {
     return sessions;
   }
 
-  @Post('time')
-  async getSessionTime(@Body('processid') processId: string) {
-    return await this.sessionService.getSessionTime(processId);
+  @Post('mostRecent')
+  async getMostRecentSessionOfProcess(@Body('processid') processId: string) {
+    return await this.sessionService.getMostRecentSession(processId);
   }
 }

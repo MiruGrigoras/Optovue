@@ -32,7 +32,7 @@ export class SessionService {
     return sessions;
   }
 
-  async getSessionTime(processIdParam: string): Promise<any> {
+  async getMostRecentSession(processIdParam: string): Promise<any> {
     const sessions = await this.findSessionsByProcessId(processIdParam);
     return {
       sessionid: sessions[0].sessionid,
