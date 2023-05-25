@@ -5,7 +5,7 @@ import { Injectable } from "@angular/core";
 export class TimeSyncService {
   constructor(private httpClient: HttpClient) {}
 
-  msToTime(duration: number) {
+  msToTime(duration: number): string {
     let milliseconds = Math.floor((duration % 1000) / 100),
       seconds = Math.floor((duration / 1000) % 60),
       minutes = Math.floor((duration / (1000 * 60)) % 60),
@@ -20,5 +20,19 @@ export class TimeSyncService {
 
   secToHours(starttimezoneoffset: number) {
     return starttimezoneoffset/3600; //60 sec for every min in 60 min
+  }
+
+  normalizeHour(sessionId: string, initialDate: Date): Date{
+    const currentSession = JSON.parse(localStorage.getItem(sessionId)!);
+    const correctHour = currentSession.starttimezoneoffset ?
+      initialDate.getHours()-this.secToHours(currentSession.starttimezoneoffset):
+      initialDate.getHours();
+    initialDate.setHours(correctHour);
+    return initialDate;
+  }
+
+  hoursToSec(timeInHours:string): number{ //timeInHours would look like this: "01:02:03"
+    const timeParts = timeInHours.split(':');
+    return +timeParts[0]*3600 + (+timeParts[1]*60) + (+timeParts[2]);
   }
 }

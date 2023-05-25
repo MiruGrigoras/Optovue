@@ -18,6 +18,7 @@ export class SessionService {
     const sessions = await this.sessionRepository.findAll<Session>({
       attributes: [
         'sessionid',
+        'processid',
         'sessionnumber',
         'startdatetime',
         'starttimezoneoffset',
@@ -31,10 +32,11 @@ export class SessionService {
     return sessions;
   }
 
-  async getSessionTime(processIdParam: string): Promise<any> {
+  async getMostRecentSession(processIdParam: string): Promise<any> {
     const sessions = await this.findSessionsByProcessId(processIdParam);
     return {
       sessionid: sessions[0].sessionid,
+      processid: sessions[0].processid,
       sessionnumber: sessions[0].sessionnumber,
       startdatetime: sessions[0].startdatetime,
       starttimezoneoffset: sessions[0].starttimezoneoffset,

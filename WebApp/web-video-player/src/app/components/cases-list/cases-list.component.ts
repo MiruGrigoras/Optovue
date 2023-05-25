@@ -40,7 +40,7 @@ export class CasesListComponent {
         let bodyParams = new HttpParams();
         bodyParams = bodyParams.append("processid", processidParam);
         this.httpClient
-          .post('http://localhost:3000/session/time', bodyParams)
+          .post('http://localhost:3000/session/mostRecent', bodyParams)
           .subscribe((res) => {
             const result: Session = res as Session;
             localStorage.setItem(result.sessionid, JSON.stringify(result));
@@ -54,7 +54,7 @@ export class CasesListComponent {
           .pipe(map((res)=>{
             const cases = [];
             for(const key in res){
-              cases.push(res[key])
+              cases.push({...res[key], localStorageIndex: +key})
             }
             return cases;
           }))
@@ -65,14 +65,14 @@ export class CasesListComponent {
                 cases[i].started = cases[i-1].finished;
             }
             this.allCases = cases;
+            localStorage.setItem(processidParam, JSON.stringify(this.allCases));
           })
       }
       
     }); 
   } 
+
   navigateToVideo(sessionid: string, caseid: string, loadingTime: Date, finishedTime: Date){
-    console.log(caseid);
-    
       this.router.navigate(
         ['/video'],
         { queryParams: {
@@ -81,5 +81,5 @@ export class CasesListComponent {
           startTime: loadingTime,
           endTime: finishedTime
         }});
-    }
+  }
 }

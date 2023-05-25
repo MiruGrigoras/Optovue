@@ -51,20 +51,17 @@ export class ProcessesListComponent implements OnInit {
     for (let i = 1; i < this.allProcesses.length; i++) {
       let processid = this.allProcesses[i].processid;
       let showCases = this.sendPostRequest(processid);//verify in the db if the last session run has cases to show 
-      console.log("was initialized with", showCases);
       this.showCasesStatus.set(processid, showCases);
     }
   }
 
   isRunning(processid: string): boolean {
-    console.log("running state", this.runningStatus.get(processid));
     if (this.runningStatus.get(processid) === true)
       return true;
     return false;
   }
   
   hasCasesToDisplay(processid: string): boolean{
-    console.log("show state", this.runningStatus.get(processid));
     if (this.showCasesStatus.get(processid) === true)
       return true;
     return false;
@@ -97,12 +94,9 @@ export class ProcessesListComponent implements OnInit {
     let bodyParams = new HttpParams();
     bodyParams = bodyParams.append("processid", processid);
     this.httpClient
-      .post('http://localhost:3000/session/time', bodyParams)
+      .post('http://localhost:3000/session/mostRecent', bodyParams)
       .subscribe((res) => {
         const result: Session = res as Session;
-        console.log(res);
-        console.log(result.enddatetime);
-
         if(!result.enddatetime)
           {  
             this.showCasesStatus.set(processid, false);

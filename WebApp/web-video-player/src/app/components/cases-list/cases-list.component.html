@@ -1,27 +1,33 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
 <div class="container">
-    <table class="mat-mdc-table mdc-data-table__table cdk-table mat-elevation-z3">
-        <tr class="mat-mdc-header-row mdc-data-table__header-row cdk-header-row">
-            <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-process_id mat-column-process_id"></th>
-            <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-process_id mat-column-process_id">Key</th>
-            <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-process_id mat-column-process_id"></th>
-            <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-process_id mat-column-process_id">Created</th>
-            <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-process_id mat-column-process_id">Finished</th>
-            
-        </tr>
-        <tr *ngFor="let case of allCases" class="mat-mdc-row mdc-data-table__row cdk-row">
-            <td class="center">
-                <button mat-icon-button>
-                    <mat-icon>more_horiz</mat-icon>
-                </button>   
-            </td>   
-            <td>{{case.id}}</td>
-            <td class="center">
-                <button mat-icon-button (click)="navigateToVideo(case.sessionid, case.id, case.started, case.finished)">
-                    <mat-icon>play_arrow</mat-icon>
-                </button>   
-            </td>
-            <td>{{case.started}}</td>
-            <td>{{case.finished}}</td>
-        </tr>
-    </table>
+    <img src="../assets/page_header.png" width="100%" id="header"/>
+    <div class="table-container">
+        <table class="mat-mdc-table mdc-data-table__table cdk-table mat-elevation-z3">
+            <tr class="mat-mdc-header-row mdc-data-table__header-row cdk-header-row">
+                <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-process_id mat-column-process_id"></th>
+                <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-process_id mat-column-process_id">Key</th>
+                <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-process_id mat-column-process_id"></th>
+                <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-process_id mat-column-process_id">Created</th>
+                <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell cdk-column-process_id mat-column-process_id">Finished</th>
+                
+            </tr>
+            <tr *ngFor="let case of allCases" class="mat-mdc-row mdc-data-table__row cdk-row">
+                <td class="center">
+                    <button mat-icon-button>
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>   
+                </td>   
+                <td>{{case.id}}</td>
+                <td class="center">
+                    <button mat-icon-button (click)="navigateToVideo(case.sessionid, case.id, case.started, case.finished)">
+                        <mat-icon [ngClass]="case.exception ? 'red' : 'green'" class="material-symbols-outlined">play_circle</mat-icon>
+                    </button>   
+                </td>
+                <td>{{case.started}}</td>
+                <td>{{case.finished}}</td>
+            </tr>
+        </table>
+    </div>
 </div>
+

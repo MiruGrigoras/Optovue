@@ -9,7 +9,6 @@ export class QueueItemService {
   constructor(
     @Inject(QUEUE_REPOSITORY)
     private queueRepository: typeof QueueItem,
-
     private sessionService: SessionService,
   ) {}
 
@@ -17,6 +16,7 @@ export class QueueItemService {
     return await this.queueRepository.findAll<QueueItem>({
       attributes: [
         'id',
+        'keyvalue',
         'sessionid',
         'loaded',
         'completed',
@@ -36,6 +36,7 @@ export class QueueItemService {
     return await this.queueRepository.findAll<QueueItem>({
       attributes: [
         'id',
+        'keyvalue',
         'sessionid',
         'loaded',
         'completed',

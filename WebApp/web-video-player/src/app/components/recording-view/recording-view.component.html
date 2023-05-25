@@ -1,18 +1,37 @@
-<mat-drawer-container class="drawer-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side" position="end">
-        <app-tasks-drawer></app-tasks-drawer>
-    </mat-drawer>
+
 
     <div class="outside-drawer-content">
-        <mat-grid-list cols="3" rowHeight="100%">
-            <mat-grid-tile [colspan]=2 >
-                <app-video-player></app-video-player>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <button type="button" mat-button (click)="drawer.toggle()">
-                    Toggle sidenav
-                </button>
-            </mat-grid-tile>
-        </mat-grid-list>
+        <img src="../assets/page_header.png" width="100%" id="header"/>
+        <mat-drawer-container class="drawer-container" autosize id="container">
+            <mat-drawer #drawer class="example-sidenav" mode="side" position="end">
+                <app-tasks-drawer [allStages]="allStages"></app-tasks-drawer>
+            </mat-drawer>
+            <mat-grid-list cols="50" rowHeight="32px">
+                <div class="controls-container">
+                    <mat-grid-tile colspan="49" rowspan="2">
+                        <div class="case-controls">
+                            <button mat-fab [disabled]="isDisabledPrev()" (click)="goToPrevCase()">
+                                <mat-icon>skip_previous</mat-icon>
+                            </button>
+                            Case {{this.currentCaseKey}}
+                            <button mat-fab [disabled]="isDisabledNext()" (click)="goToNextCase()">
+                                <mat-icon>skip_next</mat-icon>
+                            </button>
+                        </div>
+                    </mat-grid-tile>
+                </div>
+                <div class="button-container" *ngIf="areStagesPresent()">
+                    <mat-grid-tile position="end" mat-button (click)="toggleDrawer()" colspan="1" rowspan="23">
+                        <div class="side-menu-button">
+                            <mat-icon>{{this.showStages ? "expand_more" : "expand_less"}}</mat-icon>
+                            {{this.showStages ? "Hide stages" : "Show stages"}}
+                        </div>
+                    </mat-grid-tile>
+                </div>
+                <mat-grid-tile colspan="49" rowspan="21">
+                    <app-video-player [areStagesPresent]="areStagesPresent()" [isException]="isException()" [stages]="allStages"></app-video-player>
+                </mat-grid-tile>
+                
+            </mat-grid-list>
+        </mat-drawer-container>
     </div>
-</mat-drawer-container>
