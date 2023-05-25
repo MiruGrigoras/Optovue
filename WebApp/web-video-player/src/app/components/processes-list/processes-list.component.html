@@ -14,7 +14,7 @@
                         <mat-icon>more_horiz</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="runProcess(process.processid, process.name)">
+                        <button mat-menu-item (click)="thereAreLogsBefore(process.processid) ? runProcess(process.processid, process.name) : openDialog(process.processid, process.name)">
                             <mat-icon>play_arrow</mat-icon>
                             Run
                         </button>

@@ -16,6 +16,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 import { RouterModule, Routes } from "@angular/router";
@@ -23,6 +24,7 @@ import { CasesListComponent } from './components/cases-list/cases-list.component
 import { RecordingViewComponent } from './components/recording-view/recording-view.component';
 import { TasksDrawerComponent } from './components/tasks-drawer/tasks-drawer.component';
 import { StageItemComponent } from './components/stage-item/stage-item.component';
+import { LogsDisabledDialogComponent } from './components/logs-disabled-dialog/logs-disabled-dialog.component';
 
 const appRoute:Routes =[
   {path: '', redirectTo:'processes', pathMatch: 'full'},
@@ -31,7 +33,7 @@ const appRoute:Routes =[
   {path: 'cases', component: CasesListComponent},
 ] 
 @NgModule({
-  declarations: [AppComponent, VideoPlayerComponent, ProcessesListComponent, CasesListComponent, RecordingViewComponent, TasksDrawerComponent, StageItemComponent],
+  declarations: [AppComponent, VideoPlayerComponent, ProcessesListComponent, CasesListComponent, RecordingViewComponent, TasksDrawerComponent, StageItemComponent, LogsDisabledDialogComponent],
   imports: [
     BrowserModule, 
     AppRoutingModule, 
@@ -45,7 +47,8 @@ const appRoute:Routes =[
     MatMenuModule,
     MatSidenavModule,
     MatDividerModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule
   ],
   providers: [TimeSyncService],
   bootstrap: [AppComponent],

@@ -4,6 +4,8 @@ import { Process } from 'src/app/models/process';
 import { map } from 'rxjs';
 import { Router } from '@angular/router';
 import { Session } from 'src/app/models/session';
+import { MatDialog } from '@angular/material/dialog';
+import { LogsDisabledDialogComponent } from '../logs-disabled-dialog/logs-disabled-dialog.component';
 
 @Component({
   selector: 'app-processes-list',
@@ -16,7 +18,7 @@ export class ProcessesListComponent implements OnInit {
   showCasesStatus: Map<string, any> = new Map<string, any>();
   private timeoutId: any;
 
-  constructor(private httpClient: HttpClient, private router: Router){
+  constructor(private httpClient: HttpClient, private router: Router, public dialog: MatDialog){
   }
 
   ngOnInit(): void{
@@ -113,5 +115,26 @@ export class ProcessesListComponent implements OnInit {
 
   stopProcessStatusRequestInterval(): void {
     clearTimeout(this.timeoutId);
+  }
+
+  openDialog(processid:string, processName: string): void {
+    const dialogRef = this.dialog.open(LogsDisabledDialogComponent, {
+      width: '250px',
+      data: { processid: processid, processName: processName }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result.data){
+        this.runProcess(result.data.processid, result.data.processName);
+      }
+    })
+  }
+
+  thereAreLogsBefore(processid: string):boolean{
+    const params = new HttpParams().set('processid', processid);
+    this.httpClient.get<{[key: string]:Process}>('http://localhost:3000/process/', {params})
+    .subscribe((result)=>{
+      return result;
+    });
+    return false;
   }
 }
