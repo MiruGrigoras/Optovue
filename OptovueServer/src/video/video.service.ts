@@ -1,5 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Interval } from '@nestjs/schedule';
 import { Response } from 'express';
+import { readdir, statSync, unlink } from 'fs';
 import { VIDEO_PATH } from 'src/constants';
 
 @Injectable()
@@ -72,5 +74,22 @@ export class VideoService {
       .outputFormat('mp4')
       .outputOptions(['-movflags frag_keyframe+empty_moov'])
       .pipe(res, { end: true });
+  }
+
+  @Interval(3600000) //repeat every hour
+  deleteOldVideos() {
+    const currentTime = new Date(Date.now());
+    readdir(VIDEO_PATH, (err, files) => {
+      files.forEach((file) => {
+        const { birthtime } = statSync(VIDEO_PATH + file);
+        const timeDiff = Math.abs(currentTime.valueOf() - birthtime.valueOf());
+        if (timeDiff > 604800000) {
+          // 604800000 = number of milliseconds in 7 days
+          unlink(VIDEO_PATH + file, (err) => {
+            if (err) throw err;
+          });
+        }
+      });
+    });
   }
 }

@@ -4,6 +4,7 @@ import { ProcessModule } from './process/process.module';
 import { SessionModule } from './session/session.module';
 import { QueueItemModule } from './queueItem/queueItem.module';
 import { StageModule } from './stage/stage.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { StageModule } from './stage/stage.module';
     SessionModule,
     QueueItemModule,
     StageModule,
+    ScheduleModule.forRoot(),
   ],
 })
 export class AppModule {}
