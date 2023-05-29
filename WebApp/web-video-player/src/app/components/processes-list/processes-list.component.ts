@@ -119,7 +119,7 @@ export class ProcessesListComponent implements OnInit {
 
   openDialog(processid:string, processName: string): void {
     const dialogRef = this.dialog.open(LogsDisabledDialogComponent, {
-      width: '250px',
+      width: '260px',
       data: { processid: processid, processName: processName }
     });
     dialogRef.afterClosed().subscribe(result => {

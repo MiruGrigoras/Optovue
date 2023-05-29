@@ -29,8 +29,6 @@ export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
 
   ngOnInit(): void{
     this.activatedRoute.queryParams.subscribe(params => {
-      
-      const caseid = params['caseid'];
       const sessionid = params['sessionid'];
       const startTime = params['startTime'];
       const endTime = params['endTime'];
@@ -66,43 +64,43 @@ export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
       else{
         //add post request towards session video with starting and finishing time 
         let bodyParams = new HttpParams();
-          const currentSession = JSON.parse(localStorage.getItem(sessionid)!);
-          const sessionStart =  new Date(currentSession.startdatetime);
-          const correctHour = currentSession.starttimezoneoffset ?
-            sessionStart.getHours()-this.timeSyncService.secToHours(currentSession.starttimezoneoffset): //this.videoService.secToHours(currentSession.starttimezoneoffset) :
-            sessionStart.getHours()-2;
-          sessionStart.setHours(correctHour);
-          const caseStart = new Date(startTime);
-          const caseEnd = new Date(endTime);
-          this.mappedStartTime = this.timeSyncService.msToTime(+caseStart - +sessionStart);
-          this.mappedEndTime = this.timeSyncService.msToTime(+caseEnd- +sessionStart );
-          
-          bodyParams = bodyParams.append("name", sessionid);
-          bodyParams = bodyParams.append("start_time", this.mappedStartTime);
-          bodyParams = bodyParams.append("end_time", this.mappedEndTime);
-          this.httpClient
-            .post("http://localhost:3000/video/crop",bodyParams,{ responseType: "blob"})
-            .subscribe((res) => {
-              this.url =  URL.createObjectURL(res);
-              this.player.src({
-                src: this.url,
-                type:"video/mp4",
+        const currentSession = JSON.parse(localStorage.getItem(sessionid)!);
+        const sessionStart =  new Date(currentSession.startdatetime);
+        const correctHour = currentSession.starttimezoneoffset ?
+          sessionStart.getHours()-this.timeSyncService.secToHours(currentSession.starttimezoneoffset): //this.videoService.secToHours(currentSession.starttimezoneoffset) :
+          sessionStart.getHours()-2;
+        sessionStart.setHours(correctHour);
+        const caseStart = new Date(startTime);
+        const caseEnd = new Date(endTime);
+        this.mappedStartTime = this.timeSyncService.msToTime(+caseStart - +sessionStart);
+        this.mappedEndTime = this.timeSyncService.msToTime(+caseEnd- +sessionStart );
+        
+        bodyParams = bodyParams.append("name", sessionid);
+        bodyParams = bodyParams.append("start_time", this.mappedStartTime);
+        bodyParams = bodyParams.append("end_time", this.mappedEndTime);
+        this.httpClient
+          .post("http://localhost:3000/video/crop",bodyParams,{ responseType: "blob"})
+          .subscribe((res) => {
+            this.url =  URL.createObjectURL(res);
+            this.player.src({
+              src: this.url,
+              type:"video/mp4",
+            });
+            if(this.areStagesPresent){
+              const markers: { time: any; text: string; }[] = [];
+              this.stages.forEach(stage => {
+                const timeInSec = this.timeSyncService.hoursToSec(stage.relativeTime);
+                markers.push({time: timeInSec, text: "Stage " + (+stage.stageIndex+1)})
               });
-              if(this.areStagesPresent){
-                const markers: { time: any; text: string; }[] = [];
-                this.stages.forEach(stage => {
-                  const timeInSec = this.timeSyncService.hoursToSec(stage.relativeTime);
-                  markers.push({time: timeInSec, text: "Stage " + (+stage.stageIndex+1)})
-                });
-                this.player.markers({
-                  markerStyle: {
-                    'width':'3px',
-                    'background-color': 'white',
-                    'border-radius': '50%',
-                  },
-                  markers: markers,
-                });
-              }
+              this.player.markers({
+                markerStyle: {
+                  'width':'3px',
+                  'background-color': 'white',
+                  'border-radius': '50%',
+                },
+                markers: markers,
+              });
+            }
         });
       }
     })
@@ -112,8 +110,6 @@ export class VideoPlayerComponent implements OnDestroy, AfterViewInit {
       const startingSec = this.timeSyncService.hoursToSec(this.mappedStartTime);
       const endSec = this.timeSyncService.hoursToSec(this.mappedEndTime);
       const videoLength = endSec - startingSec;
-      console.log("videoLength: ", videoLength,  this.mappedStartTime, this.mappedEndTime);
-      
       if(videoLength > 5){
         this.player.currentTime(videoLength - 5);  
       }
