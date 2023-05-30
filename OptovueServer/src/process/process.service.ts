@@ -44,6 +44,6 @@ export class ProcessService {
     const stages: Stage[] = await this.stageService.getAllStageInSession(
       lastSession.sessionnumber,
     );
-    return stages.length != 0 ? true : false;
+    return stages.length > 1 ? true : false;
   }
 }

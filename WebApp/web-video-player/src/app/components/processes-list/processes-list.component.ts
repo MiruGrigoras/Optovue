@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Process } from 'src/app/models/process';
-import { map } from 'rxjs';
+import { firstValueFrom, map } from 'rxjs';
 import { Router } from '@angular/router';
 import { Session } from 'src/app/models/session';
 import { MatDialog } from '@angular/material/dialog';
@@ -129,12 +129,24 @@ export class ProcessesListComponent implements OnInit {
     })
   }
 
-  thereAreLogsBefore(processid: string):boolean{
+  hasPreviousLogsQuery(processid: string){
     const params = new HttpParams().set('processid', processid);
-    this.httpClient.get<{[key: string]:Process}>('http://localhost:3000/process/', {params})
-    .subscribe((result)=>{
-      return result;
-    });
-    return false;
+    return this.httpClient.get('http://localhost:3000/process/hasPreviousLogs', {params})
+                          .pipe(map(response=>response));
+  }
+
+  async thereAreLogsBefore(processid: string):Promise<boolean>{
+    const queryResult = await firstValueFrom(this.hasPreviousLogsQuery(processid));
+    return queryResult as boolean;
+  }
+
+  async handleRunClick(process: Process){
+    const hasLogsBefore = await this.thereAreLogsBefore(process.processid) == true;
+    if(hasLogsBefore){
+      this.runProcess(process.processid, process.name);
+    } 
+    else{
+      this.openDialog(process.processid, process.name);
+    }
   }
 }
