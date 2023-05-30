@@ -130,7 +130,7 @@ export class RecordingViewComponent implements AfterViewInit{
   }
   
   getStageTime(stage:Stage): string{
-    const sessionStartDate = new Date(this.caseStartTime);// this.timeSyncService.normalizeHour(this.sessionId, new Date(this.sessionStartTime));
+    const sessionStartDate = new Date(this.caseStartTime);
     const stageStartDate = this.timeSyncService.normalizeHour(this.sessionId, new Date(stage.startdatetime));
     return this.timeSyncService.msToTime(+stageStartDate - +sessionStartDate);
   }

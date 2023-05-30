@@ -46,6 +46,8 @@ export class VideoService {
     endTime: string,
     res: Response,
   ): any {
+    console.log('here: ', startTime, ' - ', endTime);
+
     const path = VIDEO_PATH + sessionid + '.mp4';
     if (path === VIDEO_PATH) {
       throw new HttpException(
@@ -59,6 +61,8 @@ export class VideoService {
     ffmpeg.setFfmpegPath(ffmpegPath);
     const duration =
       this.timeStringToSeconds(endTime) - this.timeStringToSeconds(startTime);
+
+    console.log('duration: ', duration);
 
     const head = {
       'Content-Type': 'video/mp4',
